@@ -1,0 +1,66 @@
+{
+    "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+    "project": {
+        "name": "hms"
+    },
+    "apps": [{
+        "root": "src",
+        "outDir": "dist",
+        "assets": [
+            "assets",
+            "favicon.png"
+        ],
+        "index": "index.html",
+        "main": "main.ts",
+        "polyfills": "polyfills.ts",
+        "test": "test.ts",
+        "tsconfig": "tsconfig.hms.json",
+        "prefix": "hms",
+        "styles": [
+            "../vendor/css/font-awesome.min.css",
+            "../vendor/css/animate.min.css",
+            "../vendor/css/slicknav.min.css",
+            "../vendor/css/owl.theme.default.css",
+            "../vendor/css/owl.carousel.min.css",
+            "../vendor/css/magnific-popup.css",
+            "../vendor/css/bootstrap.min.css",
+            "../vendor/css/skin/green.css",
+            "../node_modules/ag-grid/dist/styles/ag-grid.css",
+            "../node_modules/ag-grid/dist/styles/ag-theme-balham.css",
+            "../node_modules/primeicons/primeicons.css",
+            "../node_modules/primeng/resources/themes/nova-light/theme.css",
+            "../node_modules/primeng/resources/primeng.min.css"
+        ],
+        "scripts": [
+            "../vendor/jquery.min.js",
+            "../vendor/colors.js",
+            "../vendor/modernizr.min.js",
+            "../vendor/jquery.appear.js",
+            "../vendor/wow.min.js",
+            "../vendor/jquery.nav.js",
+            "../vendor/ytplayer.min.js",
+            "../vendor/jquery.magnific-popup.min.js",
+            "../vendor/typed.min.js",
+            "../vendor/jquery.scrollUp.min.js",
+            "../vendor/jquery.slicknav.min.js",
+            "../vendor/waypoints.min.js",
+            "../vendor/jquery.counterup.min.js",
+            "../vendor/owl.carousel.min.js",
+            "../vendor/bootstrap.min.js",
+            "../vendor/main.js"
+        ],
+        "environmentSource": "environments/environment.ts",
+        "environments": {
+            "dev": "environments/environment.ts",
+            "prod": "environments/environment.prod.ts"
+        }
+    }],
+    "defaults": {
+        "styleExt": "css",
+        "serve": {
+            "host": "0.0.0.0",
+            "port": 5000
+        },
+        "component": {}
+    }
+}

@@ -1,0 +1,187 @@
+/*!
+ * Start Bootstrap - Modern Business (https://startbootstrap.com/template-overviews/modern-business)
+ * Copyright 2013-2017 Start Bootstrap
+ * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-logomodern-business-nav/blob/master/LICENSE)
+ */
+
+ body {
+    padding-top: 54px;
+  }
+  
+  @media (min-width: 992px) {
+    body {
+      padding-top: 56px;
+    }
+  }
+  
+  .carousel-item {
+    height: 50vh;
+    min-height: 300px;
+    background: no-repeat center center scroll;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
+  
+  .portfolio-item {
+    margin-bottom: 30px;
+  }
+
+  .md-md-block{
+    margin-top: -30px;
+  }
+
+  #mainNav {
+    border-bottom: 1px solid rgba(33,37,41,.1);
+    background-color: #fff;
+    font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
+    -webkit-transition: all .2s;
+    -moz-transition: all .2s;
+    transition: all .2s;
+  }
+
+  .carousel-caption {
+    position: absolute;
+    right: 15%;
+    bottom: 20px;
+    left: 15%;
+    z-index: 10;
+    padding-top: 20px;
+    padding-bottom: 140px !important;
+    color: #fff;
+    text-align: center;
+}
+
+.h3-services{
+  font-size: 1.7rem !important;
+  font-weight: 500;
+  font-family: sans-serif;
+  color: #616161;
+  line-height: 44px;
+}
+
+.h1, h1 {
+  font-size: 1.5rem;
+  font-weight: 500;
+  font-family: sans-serif;
+  text-align: left !important;
+  padding-bottom: 5px !important;
+}
+
+a {
+  color: #0690e4;
+  text-decoration: none;
+  font-size: 0.85rem;
+  background-color: transparent;
+  font-weight: 400;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+  color: rgba(255, 255, 255, 0.79);
+}
+
+.dropdown-item {
+  display: block;
+  width: 100%;
+  padding: .65rem 1.8rem;
+  clear: both;
+  font-weight: 500;
+  color: #212529;
+  text-align: inherit;
+  white-space: nowrap;
+  background: 0 0;
+  border: 0;
+}
+
+.fixed-top {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1030;
+  height: 65px;
+}
+
+.navbar-expand-lg .navbar-nav .nav-link {
+    padding-right: .8rem;
+    padding-left: .8rem;
+}
+
+.navbar-expand-lg .navbar-nav .dropdown-menu-right {
+  right: auto;
+  left: auto;
+}
+
+.my-4 {
+  margin-top: 1.5rem!important;
+  margin-bottom: 1.5rem!important;
+  color: brown;
+}
+
+.py-5 {
+  padding-top: 0rem!important;
+  padding-bottom: 2rem!important;
+  height: 10px;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: brown;
+  border-color: brown;
+  margin-left: 10px;
+}
+
+.bg-dark {
+  /* background-color: brown !important; */
+  /* background-color: #4e5152 !important; */
+  background-color: #0671b7 !important;
+}
+
+.mt-4 {
+    margin-top: -2.5rem!important;
+}
+
+p {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 16px !important;
+    font-weight: 300;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.67;
+    letter-spacing: normal;
+    text-align: left;
+    color: #616161;
+    font-family: sans-serif;
+  }
+
+  .service-text{
+    margin-bottom: .5rem!important;
+    font-size: 23px;
+    font-weight: 400;
+  }
+
+  .text-primary {
+    color: #0671b7 !important;
+  }
+
+  .service-click{
+    cursor: pointer;
+  }
+
+  .fa-4x {
+    font-size: 3em;
+  }
+.btn-learn-more{
+  height: 23px !important;
+  background-color: #fff;
+  border: solid 0.5px #0671b7;
+  font-size: 17px;
+  font-weight: normal;
+  line-height: 0.45;
+  color: #131c2e;
+  margin-top: 20px !important;
+  padding: 2px 16px !important;
+  border-radius: 30px;
+}

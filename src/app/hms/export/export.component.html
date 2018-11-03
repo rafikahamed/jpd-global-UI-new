@@ -1,0 +1,255 @@
+<body class="nav-md" #maintoggle>
+    <div class="container body">
+      <div class="main_container">
+        
+          <div class="col-md-3 left_col">
+              <div class="left_col scroll-view">
+              <div class="clearfix"></div>
+                    <div class="profile clearfix">
+                        <div class="profile_pic">
+                        <img src="../../../assets/img/user.png" alt="..." class="img-circle profile_img">
+                        </div>
+                        <div class="profile_info">
+                        <span>Welcome,</span>
+                        <h2>Chris Denham</h2>
+                    </div>
+              </div>
+             
+              <br/>
+
+              <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                  <div class="menu_section">
+                      <ul class="nav side-menu">
+                      <li>
+                          <a (click)="toggle(arrow)"><i class="fa fa-home"></i> GST Services <span class="fa fa-chevron-down" #arrow></span></a>
+                          <ul class="nav child_menu" [ngStyle]="{'display': !childmenuOne ? 'block' : 'none'}">
+                            <li><a routerLink="/gst-service/import"> Upload File - Import Parcel</a></li>
+                            <li><a routerLink="/gst-service/export"> Upload File - Export Parcel</a></li>
+                            <li *ngIf="downLoadFlag"><a routerLink="/gst-service/download"> Download Report</a></li>
+                          </ul>
+                      </li>
+                     
+                      </ul>
+                  </div>
+              </div>
+
+              </div>
+          </div>
+
+  <!-- top navigation -->
+  <div class="top_nav">
+              <div class="nav_menu" (click)="sidebartoggle(maintoggle)">
+              <nav>
+                  <div class="nav toggle">
+                  <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                  </div>
+
+                  <ul class="nav navbar-nav navbar-right">
+                  <li class="">
+                      <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                      <img src="../../../assets/img/user.png" alt=""> Chris Denham
+                      <span class=" fa fa-angle-down"></span>
+                      </a>
+                      <ul class="dropdown-menu dropdown-usermenu pull-right">
+                      <li><a href="javascript:;"> Profile</a></li>
+                      <li>
+                          <a href="javascript:;">
+                          <span class="badge bg-red pull-right">50%</span>
+                          <span>Settings</span>
+                          </a>
+                      </li>
+                      <li><a href="javascript:;">Help</a></li>
+                      <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                      </ul>
+                  </li>
+
+                  <li role="presentation" class="dropdown">
+                      <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
+                      <i class="fa fa-envelope-o"></i>
+                      <span class="badge bg-green">6</span>
+                      </a>
+                      <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
+                      <li>
+                          <a>
+                          <span class="image"><img src="../../../assets/img/user.png" alt="Profile Image" /></span>
+                          <span>
+                              <span>John Smith</span>
+                              <span class="time">3 mins ago</span>
+                          </span>
+                          <span class="message">
+                              Film festivals used to be do-or-die moments for movie makers. They were where...
+                          </span>
+                          </a>
+                      </li>
+                      <li>
+                          <div class="text-center">
+                          <a>
+                              <strong>See All Alerts</strong>
+                              <i class="fa fa-angle-right"></i>
+                          </a>
+                          </div>
+                      </li>
+                      </ul>
+                  </li>
+                  </ul>
+              </nav>
+              </div>
+  </div>
+
+
+  <!-- page content -->
+  <div class="right_col" role="main">
+            <div class="row tile_count">
+                  <div class="page-title">
+                          <div class="title_left">
+                            <h3 style="margin-left: 10px;">Upload File / Export Parcel</h3>
+                          </div>
+                  </div>
+            </div>
+  </div>
+  <!-- page content -->
+  
+  <div class="right_col" role="main">
+        <!-- top tiles -->
+        <div class="row tile_count">
+          <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+            <span class="count_top"><i class="fa fa-user"></i> Conversion Rate </span>
+            <span class="count_top"><i ></i> Last Updated Time </span>
+            <div class="count">{{currencyUpdatedTime}}</div>
+          </div>
+          <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+            <span class="count_top"><i class="fa fa-clock-o"></i> Company Name</span>
+            <div class="count">{{companyName}}</div>
+          </div>
+          <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+            <span class="count_top"><i class="fa fa-user"></i> User </span>
+            <div class="count green">{{userName}}</div>
+          </div>
+          <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+            <span class="count_top"><i class="fa fa-user"></i> Access </span>
+            <div class="count">{{access}}</div>
+          </div>
+          <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+            <span class="count_top"><i class="fa fa-user"></i> User Code (ARN) </span>
+            <div class="count">{{userCode}}</div>
+          </div>
+          <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+            <span class="count_top"><i class="fa fa-user"></i> Outstanding GST amount </span>
+            <div class="count">{{exportSumValue}} AUD</div>
+            <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>As on : </i> {{currentDate}}</span>
+          </div>
+        </div>
+        <!-- /top tiles -->
+
+        <ngx-spinner
+        bdColor="rgba(51,51,51,0.8)"
+        size="medium"
+        color="#fff"
+        loadingText="Loading..."
+        type="ball-clip-rotate-multiple">
+      </ngx-spinner>
+
+      <!-- Modal -->
+      <div class="modal fade" id="fileUploadModal" role="dialog">
+              <div class="modal-dialog">
+              
+                <!-- Modal content-->
+                <div class="modal-content" style="margin-top: 150px; width: 900px; margin-left: -150px;">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title" style="font-size: 17px; color: darkgoldenrod;">{{exportSuccessMsg}} {{exportErrorMsg}}</h4>
+                  </div>
+                    <div *ngIf="show">
+                      <a style="float: left; margin-left: 20px; margin-top: 12px;">Click icon to download the refrence number :</a>
+                       <i class="fa fa-file-excel-o" (click)="downLoad()"
+                          style="margin:10px; color: green; font-size:25px !important; cursor: pointer;"aria-hidden="true"></i>
+                    </div>
+                    <div class="modal-body">
+                      <div>
+                       <p class="err_msg" style="word-wrap: break-word">{{errorDetails1}}</p>
+                      </div>
+                    </div>
+                  <div class="modal-footer">
+                  </div>
+                </div>
+              </div>
+      </div>
+
+      <div class="fileupload_search">
+          <div style="padding-right: 15px; margin-bottom:40px">
+              <a href="/assets/forms/Import-Export-Template.xlsx" class="fa fa-file-excel-o" 
+                  style="color: darkgreen; font-size:17px; float: left;" download>
+                    **Please click here to download the template for file Export
+              </a>
+          </div>
+
+          <div style="padding-top: 10px;">
+            <p style="float: left"> Select File : </p>
+            <input type="file" style="display: inline-block; margin-left:25px" (change)="incomingfile($event)" 
+                          placeholder="Upload file" accept=".xlsx, .xls">
+          </div>
+
+
+          <button type="button" class="btn btn-info" (click)="ExportUpload()"
+          style="background-color: #16A085; float:left; margin-left: 300px; margin-top: -25px">Upload Records</button>
+      </div>
+
+      <div class="fileupload_panel">
+
+                <div style="margin-top: 20px;">
+                    <p class="err_msg">{{exportErrorMsg}}</p>
+                </div>
+             
+              <button type="button" class="btn btn-info" (click)="DownLoadGstExportReport()"
+                  style="background-color: #16A085; float:right; margin-right:20px">Download Exported Data</button>
+
+              <div style="padding:20px">
+                <p> Please select the below records to download the Exported data </p>
+                  <div>
+                      <ag-grid-angular 
+                                #agGrid style="width: 100%; height: 450px;" 
+                                class="ag-theme-balham" 
+                                [autoGroupColumnDef]="autoGroupColumnDef"
+                                [rowData]="rowData"
+                                [enableSorting]="true"
+                                [enableFilter]="true"
+                                [suppressRowClickSelection]="true"
+                                [groupSelectsChildren]="true"
+                                [debug]="true"
+                                [rowSelection]="rowSelection"
+                                [enableColResize]="true"
+                                [rowGroupPanelShow]="rowGroupPanelShow"
+                                [pivotPanelShow]="pivotPanelShow"
+                                [enableRangeSelection]="true"
+                                [pagination]="true"
+                                [defaultColDef]="defaultColDef"
+                                [gridOptions]="gridOptions" 
+                                [pagination]="true"
+                                (selectionChanged)="onSelectionChange($event)">
+                      </ag-grid-angular>
+                  </div>
+              </div>
+      </div>
+  </div>
+  <!-- /page content -->
+
+  <!-- Start Footer -->
+  <footer id="footer" class="wow fadeIn">
+      <div class="copyright">
+              <div class="container">
+                <div class="row">
+                  <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="text">
+                      <p>&copy; Copyright 2018<span><i class="fa fa-heart"></i></span>
+                          <a href="https://themewagon.com/" target="_blank">JPD</a> (Distributor)</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+      </div>
+  </footer>
+  <!--/ End Footer -->
+
+</div>
+</div>
+</body>
