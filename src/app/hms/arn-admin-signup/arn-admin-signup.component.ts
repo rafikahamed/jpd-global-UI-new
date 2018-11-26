@@ -2,6 +2,7 @@ import { Component, ElementRef, ViewChild, OnInit} from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AdminService } from 'app/hms/service/admin.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { ParcelService } from 'app/hms/service/parcel.service';
 import * as XLSX from 'xlsx';
 declare var $: any;
 
@@ -26,6 +27,11 @@ export class ARNAdminSignUpComponent implements OnInit{
   arrayBuffer:any;
   hasError: Boolean;
   level: string;
+  userDetails: userDetails;
+  userName: String;
+  access: String;
+  companyName : String;
+  userCode: string;
   userMessage: userMessage;
   brokerAddClientForm: FormGroup;
   fileData: ArnRegister[];
@@ -41,7 +47,8 @@ export class ARNAdminSignUpComponent implements OnInit{
 
   constructor(
       private spinner: NgxSpinnerService,
-      public adminservice: AdminService
+      public adminservice: AdminService,
+      public parcelservice: AdminService
   ){
       this.errorMsg = null;
       this.hasError = false;
@@ -70,21 +77,18 @@ export class ARNAdminSignUpComponent implements OnInit{
       this.adminSignupForm.get('managerName').reset();
       this.adminSignupForm.get('managerName').disable();
       this.level = this.accessDropdown[0].value;
+      this.getLoginDetails();
     };
 
-    // getLoginDetails(){
-    //   if(this.parcelservice.userMessage != undefined){
-    //     this.userDetails = this.parcelservice.userMessage;
-    //     this.userName = this.parcelservice.userMessage.userName;
-    //     this.access = this.parcelservice.userMessage.access;
-    //     this.companyName = this.parcelservice.userMessage.companyName;
-    //     this.userCode = this.parcelservice.userMessage.userCode;
-  
-    //     if(this.parcelservice.userMessage.access == "level 2"){
-    //       this.downLoadFlag =true;
-    //     }
-    //   }
-    // }
+    getLoginDetails(){
+      if(this.parcelservice.userMessage != undefined){
+        this.userDetails = this.parcelservice.userMessage;
+        this.userName = this.parcelservice.userMessage.userName;
+        this.access = this.parcelservice.userMessage.access;
+        this.companyName = this.parcelservice.userMessage.companyName;
+        this.userCode = this.parcelservice.userMessage.userCode;
+      }
+    };
 
     onAccessDropdownchange(event){
       this.level = event.value.value;
@@ -173,8 +177,8 @@ export class ARNAdminSignUpComponent implements OnInit{
                 this.signUpSuccessFlag = true;
                 $('#fileUploadModal').modal('show');
                 this.successMsg = this.userMessage.message ;
-              }else if(this.userMessage.message == "User Already Exists"){
-                this.errorMsg = "* UserName Already exists, Please provide an Unique Value!";
+              }else if(this.userMessage.message){
+                this.errorMsg = this.userMessage.message;
               }
               if(!resp){
                 this.errorMsg = "Invalid Credentials!";
@@ -183,8 +187,7 @@ export class ARNAdminSignUpComponent implements OnInit{
                 this.spinner.hide();
               }, 5000);
         })
-}
-
+      }
     };
 
     onCompanyDropdownchange(company){
@@ -219,6 +222,14 @@ export interface ArnRegister {
   websiteName: string;
   tanNumber: string;
   message: String;
+}
+
+export interface userDetails {
+  message,
+  userName,
+  access,
+  companyName,
+  userCode
 }
 
 export interface userMessage {

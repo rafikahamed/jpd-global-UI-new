@@ -7,12 +7,9 @@ import { Observable } from 'rxjs/Observable';
 const baseUrl = "https://www.jpdglobal.com.au/v1/logistics";
 @Injectable()
 export class UserService {
-  
   userMessage: userMessage;
   arnRegister: ArnRegister;
-  constructor(private http: HttpClient, private router: Router) {
-
-  }
+  constructor(private http: HttpClient, private router: Router) {}
   
   arnRegistration( arnObject, fileName, callback): any {
    var array = [];
@@ -30,7 +27,8 @@ export class UserService {
       console.error(error);
     });
   }
-}
+
+};
 
 export interface userMessage {
   message,

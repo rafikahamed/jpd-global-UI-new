@@ -104,7 +104,6 @@ export class ArnRegistrationComponent {
          this.spinner.hide();
          this.errorMsg = "*Invalid Credentials! please send email to JPD support";
        }
- 
        setTimeout(() => {
          this.spinner.hide();
        }, 5000);

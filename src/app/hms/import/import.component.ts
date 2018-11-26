@@ -165,6 +165,7 @@ export class ImportComponent implements OnInit{
             var worksheet = workbook.Sheets[first_sheet_name];
             //Validation for file containing fields
             var importData = XLSX.utils.sheet_to_json(worksheet);
+            console.log(importData);
             for (var importVal in importData) {
                 var importObj = importData[importVal];
                   for(var importKey in importObj){
@@ -176,7 +177,7 @@ export class ImportComponent implements OnInit{
                     }
   
                     if(importKey === 'Sale Date'){
-                      var rxDatePattern = /^([012]?\d|3[01])-([Jj][Aa][Nn]|[Ff][Ee][bB]|[Mm][Aa][Rr]|[Aa][Pp][Rr]|[Mm][Aa][Yy]|[Jj][Uu][Nn]|[Jj][u]l|[aA][Uu][gG]|[Ss][eE][pP]|[oO][Cc]|[Nn][oO][Vv]|[Dd][Ee][Cc])-(19|20)\d\d$/;
+                      var rxDatePattern = /^(\d{1,2})(\/|-)([a-zA-Z]{3})(\/|-)(\d{4})$/;
                       if(!importObj[importKey].match(rxDatePattern)){
                         this.errorMsg = "***Invalid Sale Date – Please enter the valid date format - DD-MMM-YYYY"
                         break;

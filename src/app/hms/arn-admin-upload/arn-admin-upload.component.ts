@@ -1,6 +1,7 @@
 import { Component, ElementRef, ViewChild, OnInit} from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { AdminService } from 'app/hms/service/admin.service';
+import { ParcelService } from 'app/hms/service/parcel.service';
 import { GridOptions } from "ag-grid";
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Angular2Csv } from 'angular2-csv/Angular2-csv';
@@ -44,8 +45,8 @@ export class ARNAdminUploadComponent implements OnInit{
                    'Date Of Birth', 'Registration Date'];
     constructor(
       public adminservice: AdminService,
-      private spinner: NgxSpinnerService,
-      
+      public parcelservice: AdminService,
+      private spinner: NgxSpinnerService
     ){
       this.errorMsg = null;
       this.successMsg = null;
@@ -255,21 +256,19 @@ export class ARNAdminUploadComponent implements OnInit{
 
     ngOnInit() {
       this.childmenuOne = false;
+      this.getLoginDetails();
     }
 
-    // getLoginDetails(){
-    //   if(this.parcelservice.userMessage != undefined){
-    //     this.userDetails = this.parcelservice.userMessage;
-    //     this.userName = this.parcelservice.userMessage.userName;
-    //     this.access = this.parcelservice.userMessage.access;
-    //     this.companyName = this.parcelservice.userMessage.companyName;
-    //     this.userCode = this.parcelservice.userMessage.userCode;
-  
-    //     if(this.parcelservice.userMessage.access == "level 2"){
-    //       this.downLoadFlag =true;
-    //     }
-    //   }
-    // }
+    getLoginDetails(){
+      console.log(this.parcelservice.userMessage )
+      if(this.parcelservice.userMessage != undefined){
+        this.userDetails = this.parcelservice.userMessage;
+        this.userName = this.parcelservice.userMessage.userName;
+        this.access = this.parcelservice.userMessage.access;
+        this.companyName = this.parcelservice.userMessage.companyName;
+        this.userCode = this.parcelservice.userMessage.userCode;
+      }
+    };
   
     toggle(arrow) {
       this.childmenuOne = !this.childmenuOne;

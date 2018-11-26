@@ -7,18 +7,14 @@ const baseUrl = "https://www.jpdglobal.com.au/v1/logistics";
 // const baseUrl = "http://localhost:8080/v1/logistics";
 @Injectable()
 export class ParcelService {
-
   userMessage: userMessage;
   fileData: FileData;
   fileData_export: FileData_Export;
   public newUserSubject = new Subject<any>();
-
   constructor(
     private http: HttpClient, 
     private router: Router
-  ){ 
-   
-  }
+  ){}
 
   getLoginDetails(data){
     this.userMessage = data;

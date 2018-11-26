@@ -9,14 +9,11 @@ const baseUrl = "https://www.jpdglobal.com.au/v1/logistics";
 // const baseUrl = "http://localhost:8080/v1/logistics";
 @Injectable()
 export class SignUpService {
-
   userMessage:userMessage;
   constructor(
     private http: HttpClient, 
     private router: Router
-  ) {
-
-  }
+  ){}
 
   signUp( signUpObject, callback): any {
     this.http.post(baseUrl+'/signup',signUpObject

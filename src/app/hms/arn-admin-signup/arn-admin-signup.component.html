@@ -24,7 +24,7 @@
                                                 </div>
                                                 <div class="profile_info">
                                                 <span>Welcome,</span>
-                                                <h2>Chris Denham</h2>
+                                                <h2>{{this.userName}}</h2>
                                         </div>
                         </div>
 
@@ -52,8 +52,8 @@
                                         <li class="">
                                                 <a href="javascript:;" class="user-profile dropdown-toggle" 
                                                 data-toggle="dropdown" aria-expanded="false">
-                                                <img src="../../../assets/img/user.png" alt=""> Chris Denham
-                                                <span class=" fa fa-angle-down"></span>
+                                                <img src="../../../assets/img/user.png" alt=""> {{this.userName}}
+                                                        <span class=" fa fa-angle-down"></span>
                                                 </a>
                                                 <ul class="dropdown-menu dropdown-usermenu pull-right">
                                                 
@@ -83,7 +83,7 @@
                                 </div>
 
                                 <table class="table table-striped" style="width:55%">
-                                        <div style="margin-top: 10px;">
+                                        <div style="margin-top: 5px;">
                                                 <p style="color: #ca2929; font-size:14px; font-weight:400;">
                                                    {{errorMsg}}</p>
                                         </div>

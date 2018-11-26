@@ -254,6 +254,8 @@ body .container.body .right_col{
     float: left;
     display: block;
     border-bottom: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+    padding: 5px;
 }
 .page-title .title_left h3{
     margin:9px 0
