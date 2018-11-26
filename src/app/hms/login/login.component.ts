@@ -112,10 +112,8 @@ export class LoginComponent implements OnInit{
         if(this.userMessage.message == "User dose not have access to login"){
           this.spinner.hide();
           this.errorMsg = "*Invalid Credentials! *First time user please Signup befor login";
-        }
-  
+        };
         setTimeout(() => {
-          /** spinner ends after 5 seconds */
           this.spinner.hide();
         }, 5000);
       })

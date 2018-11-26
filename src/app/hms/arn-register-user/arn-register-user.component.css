@@ -6,9 +6,9 @@
   }
   
   .arn-heading{
-      font-size: 30px;
+      font-size: 20px;
       margin-top: 50px;
-      padding-bottom: 20px;
+      padding-bottom: 15px;
       border-bottom: 1px solid #ccc;
   }
   
@@ -326,7 +326,7 @@
     z-index: -1;
     width: 300%;
     height: 100%;
-    background: #a64bf4;
+    background: #2f537b;
     background: -webkit-linear-gradient(right, #00dbde, #fc00ff, #00dbde, #fc00ff);
     background: -o-linear-gradient(right, #00dbde, #fc00ff, #00dbde, #fc00ff);
     background: -moz-linear-gradient(right, #00dbde, #fc00ff, #00dbde, #fc00ff);

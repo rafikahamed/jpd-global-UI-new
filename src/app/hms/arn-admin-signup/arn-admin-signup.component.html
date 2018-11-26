@@ -1,0 +1,314 @@
+<body class="nav-md" #maintoggle>
+        <div class="container body">
+                <div class="main_container">
+
+                                <div class="modal fade" id="fileUploadModal" role="dialog">
+                                                <div class="modal-dialog">
+                                                  <div class="modal-content" style="margin-top: 150px; width: 900px; margin-left: -150px;">
+                                                    <div class="modal-header">
+                                                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                      <h4 class="modal-title" style="font-size: 17px; color: darkgoldenrod;">{{successMsg}}</h4>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                        </div>
+                        
+                        <div class="col-md-3 left_col">
+                        <div class="left_col scroll-view">
+                                <div class="clearfix"></div>
+                                        <div class="profile clearfix">
+                                                <div class="profile_pic">
+                                                <img src="../../../assets/img/user.png" alt="..." class="img-circle profile_img">
+                                                </div>
+                                                <div class="profile_info">
+                                                <span>Welcome,</span>
+                                                <h2>Chris Denham</h2>
+                                        </div>
+                        </div>
+
+                        <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                                <div class="menu_section">
+                                <ul class="nav side-menu">
+                                <li>
+                                        <a (click)="toggle(arrow)"><i class="fa fa-home"></i> Admin Login 
+                                                <span class="fa fa-chevron-down" #arrow></span></a>
+                                        <ul class="nav child_menu" [ngStyle]="{'display': !childmenuOne ? 'block' : 'none'}">
+                                        <li><a routerLink="/arn-register/admin"> ARN Registration </a></li>
+                                        <li><a routerLink="/arn-register/signUp"> Sign Up for User </a></li>
+                                        <li><a routerLink="/arn-register/download"> Download Outstanding GST Report</a></li>
+                                        </ul>
+                                </li>
+                                </ul>
+                                </div>
+                        </div>
+                        </div>
+                        </div>
+
+                        <div class="top_nav">
+                                <nav>
+                                        <ul class="nav navbar-nav navbar-right">
+                                        <li class="">
+                                                <a href="javascript:;" class="user-profile dropdown-toggle" 
+                                                data-toggle="dropdown" aria-expanded="false">
+                                                <img src="../../../assets/img/user.png" alt=""> Chris Denham
+                                                <span class=" fa fa-angle-down"></span>
+                                                </a>
+                                                <ul class="dropdown-menu dropdown-usermenu pull-right">
+                                                
+                                                <li><a routerLink="/home"><i class="fa fa-sign-out pull-right"></i> 
+                                                Log Out</a></li>
+                                                </ul>
+                                        </li>
+                                        </ul>
+                                </nav>   
+                        </div>
+
+                        <div class="right_col" role="main">
+                                <ngx-spinner
+                                bdColor="rgba(51,51,51,0.8)"
+                                size="medium"
+                                color="#fff"
+                                loadingText="Loading..."
+                                type="ball-clip-rotate-multiple">
+                                </ngx-spinner>
+
+                                <div class="row tile_count">
+                                        <div class="page-title">
+                                                <div class="title_left">
+                                                <h3 style="margin-left: 10px;">ARN Sign Up - User </h3>
+                                                </div>
+                                        </div>
+                                </div>
+
+                                <table class="table table-striped" style="width:55%">
+                                        <div style="margin-top: 10px;">
+                                                <p style="color: #ca2929; font-size:14px; font-weight:400;">
+                                                   {{errorMsg}}</p>
+                                        </div>
+                                        <tbody>
+                                        <tr>
+                                                <td colspan="1" style="border-top: 0px;">
+                                                        
+                                                <form class="well form-horizontal" [formGroup]="adminSignupForm">
+                                                        <fieldset>
+                                                        <div class="form-group">
+                                                                        <label class="col-md-4 control-label">Access Level</label>
+                                                                        <div class="col-md-8 inputGroupContainer">
+                                                                        <div class="input-group">
+                                                                                <span class="input-group-addon">
+                                                                                <i class="glyphicon glyphicon-user"></i>
+                                                                                </span>
+                                                                                <p-dropdown [options]="accessDropdown" 
+                                                                                        [style]="{'width': '300px'}"
+                                                                                        [ngModelOptions]="{standalone: true}"
+                                                                                        [(ngModel)]="selectedLevel"
+                                                                                        optionLabel="name" 
+                                                                                        (onChange)="onAccessDropdownchange($event)">
+                                                                                </p-dropdown>
+                                                                        </div>
+                                                                        </div>
+                                                        </div>
+                                                        
+                                                        <div *ngIf="legalNameFlag"  class="form-group">
+                                                        <label class="col-md-4 control-label">Legal Name</label>
+                                                        <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group">
+                                                                        <span class="input-group-addon">
+                                                                        <i class="glyphicon glyphicon-user"></i>
+                                                                        </span>
+                                                                        <input id="companyName" 
+                                                                                formControlName="legalName"
+                                                                                placeholder="Legal Name" 
+                                                                                class="form-control" 
+                                                                                required="true" 
+                                                                                type="text">
+                                                                        </div>
+                                                        </div>
+                                                        </div>
+
+                                                        <div class="form-group" *ngIf="legalNameSelctFlag">
+                                                                        <label class="col-md-4 control-label">Legal Name</label>
+                                                                        <div class="col-md-8 inputGroupContainer">
+                                                                        <div class="input-group">
+                                                                                <span class="input-group-addon">
+                                                                                <i class="glyphicon glyphicon-user"></i>
+                                                                                </span>
+                                                                                <p-dropdown [options]="companyDropdown" 
+                                                                                        [style]="{'width': '300px'}"
+                                                                                        [ngModelOptions]="{standalone: true}"
+                                                                                        [(ngModel)]="selectedCompany" 
+                                                                                        optionLabel="name" 
+                                                                                        (onChange)="onCompanyDropdownchange($event)">
+                                                                                </p-dropdown>
+                                                                        </div>
+                                                                        </div>
+                                                        </div>
+
+                                                        <div class="form-group" *ngIf="levelTwoFlag">
+                                                                        <label class="col-md-4 control-label">Authorised contacts</label>
+                                                                        <div class="col-md-8 inputGroupContainer">
+                                                                        <div class="input-group">
+                                                                        <span class="input-group-addon">
+                                                                                <i class="glyphicon glyphicon-user"></i>
+                                                                        </span>
+                                                                        <input id="authorisedContacts" 
+                                                                                formControlName="authrorizedConatct"
+                                                                                placeholder="Authorised contacts" 
+                                                                                class="form-control" 
+                                                                                required="true" 
+                                                                                type="text">
+                                                                        </div>
+                                                                        </div>
+                                                        </div>
+
+                                                        <div class="form-group" *ngIf="arnRestrict">
+                                                        <label class="col-md-4 control-label">ARN Number</label>
+                                                        <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group">
+                                                                        <span class="input-group-addon">
+                                                                                <i class="glyphicon glyphicon-user"></i>
+                                                                        </span>
+                                                                        <input id="addressLine1" 
+                                                                                formControlName="arnNumber"
+                                                                                placeholder="ARN Number" 
+                                                                                class="form-control" 
+                                                                                required="true" 
+                                                                                type="text">
+                                                                        </div>
+                                                        </div>
+                                                        </div>
+
+                                                        <div class="form-group" *ngIf="levelTwoFlag">
+                                                                        <label class="col-md-4 control-label">Email Address</label>
+                                                                        <div class="col-md-8 inputGroupContainer">
+                                                                        <div class="input-group"><span class="input-group-addon">
+                                                                                <i class="glyphicon glyphicon-envelope">
+                                                                                </i></span>
+                                                                                <input id="email" 
+                                                                                        formControlName="emailAddress"
+                                                                                        placeholder="Email" 
+                                                                                        class="form-control" 
+                                                                                        required="true" 
+                                                                                        type="text">
+                                                                        </div>
+                                                                        </div>
+                                                        </div>
+                                                        
+                                                        <div class="form-group" *ngIf="levelTwoFlag">
+                                                        <label class="col-md-4 control-label">Phone number</label>
+                                                        <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"><span class="input-group-addon">
+                                                                        <i class="glyphicon glyphicon-home"></i>
+                                                                        </span><input id="phoneNumber" 
+                                                                                formControlName="phoneNumber"
+                                                                                placeholder="Phone Number" 
+                                                                                class="form-control" 
+                                                                                required="true" 
+                                                                                type="text">
+                                                                        </div>
+                                                        </div>
+                                                        </div>
+                                                        
+                                                        <div class="form-group">
+                                                        <label class="col-md-4 control-label">Username</label>
+                                                        <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group">
+                                                                        <span class="input-group-addon">
+                                                                                <i class="glyphicon glyphicon-home"></i>
+                                                                        </span>
+                                                                        <input id="userName" 
+                                                                                formControlName="userName"
+                                                                                placeholder="UserName" 
+                                                                                class="form-control" 
+                                                                                required="true" 
+                                                                                type="text">
+                                                                </div>
+                                                        </div>
+                                                        </div>
+                                                        
+                                                        <div class="form-group">
+                                                        <label class="col-md-4 control-label">Level-1 User Name</label>
+                                                        <div class="col-md-8 inputGroupContainer">
+                                                                        <div class="input-group">
+                                                                                <span class="input-group-addon">
+                                                                                <i class="glyphicon glyphicon-home"></i>
+                                                                                </span>
+                                                                                <input id="country" 
+                                                                                formControlName="managerName"
+                                                                                placeholder="Level-1 User Name" 
+                                                                                class="form-control" 
+                                                                                required="true" 
+                                                                                type="text">
+                                                                                </div>
+                                                        </div>
+                                                        </div>
+                                                        
+                                                        <div class="form-group">
+                                                        <label class="col-md-4 control-label">Password</label>
+                                                        <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"><span class="input-group-addon">
+                                                                        <i class="glyphicon glyphicon-lock"></i>
+                                                                        </span>
+                                                                        <input id="password" 
+                                                                                formControlName="password" 
+                                                                                placeholder="password" 
+                                                                                class="form-control" 
+                                                                                required="true" 
+                                                                                type="password"></div>
+                                                        </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                                <label class="col-md-4 control-label">Confirm Password</label>
+                                                                <div class="col-md-8 inputGroupContainer">
+                                                                        <div class="input-group">
+                                                                                        <span class="input-group-addon">
+                                                                                        <i class="glyphicon glyphicon-lock"></i>
+                                                                                        </span>
+                                                                                        <input id="confirmPassword" 
+                                                                                        formControlName="confirmPassword"
+                                                                                        placeholder="Repeat Password" 
+                                                                                        class="form-control" 
+                                                                                        required="true" 
+                                                                                        type="password">
+                                                                        </div>
+                                                                </div>
+                                                        </div>
+                                                        
+                                                        <div class="form-group" style="margin-top:30px"> 
+                                                                        <div class="aab controls col-md-4 "></div>
+                                                                        <div class="controls col-md-8 ">
+                                                                        <input type="submit" 
+                                                                                value="Submit"
+                                                                                [disabled]="disableUpdate"
+                                                                                class="btn btn-primary btn btn-info"
+                                                                                (click)="updateClient()"
+                                                                                id="submit-id-signup" />
+                                                                        </div>
+                                                                </div> 
+                                                        </fieldset>
+                                                </form>
+                                                </td>
+                                </tr>
+                                </tbody>
+                        </table>
+                        </div>
+
+                        <footer id="footer" class="wow fadeIn">
+                                <div class="copyright">
+                                <div class="container">
+                                        <div class="row">
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <div class="text">
+                                        <p>&copy; Copyright 2018<span><i class="fa fa-heart"></i></span><a>JPD</a> (Distributor)</p>
+                                        </div>
+                                        </div>
+                                        </div>
+                                </div>
+                                </div>
+                        </footer>
+
+                </div>
+        </div>
+</body>

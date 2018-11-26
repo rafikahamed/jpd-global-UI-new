@@ -15,42 +15,7 @@ export class AdminService {
   ){}
 
   arnRegistration( arnObject, fileName, callback): any {
-    console.log(arnObject)
-    var results = arnObject;
-    var self = this;
-    var arnlist = [];
-    let businessType = 'businessType';
-    let legalName = 'legalName';
-    let authrorizedConatct = 'authrorizedConatct';
-    let phoneNumber = 'phoneNumber';
-    let postalAddress = 'postalAddress';
-    let subUrb = 'subUrb';
-    let postCode = 'postCode';
-    let country = 'country';
-    let websiteName = 'websiteName';
-    let tanNumber = 'tanNumber';
-    let emailAddress = 'emailAddress';
-
-    for (var adminVal in results) {
-        var adminObj = results[adminVal];
-        var arnObj = (
-            arnObj={}, 
-            arnObj[authrorizedConatct]= adminObj['Authorised contacts'], arnObj,
-            arnObj[websiteName]= adminObj['Business and trading website name'], arnObj,
-            arnObj[businessType]= adminObj['Business type'], arnObj,
-            arnObj[country]= adminObj.Country, arnObj,
-            arnObj[emailAddress] = adminObj['Email address'], arnObj,
-            arnObj[legalName]= adminObj['Legal name'], arnObj,
-            arnObj[phoneNumber]= adminObj['Phone number'], arnObj,
-            arnObj[postalAddress]= adminObj['Postal address'], arnObj,
-            arnObj[postCode]= adminObj.Postcode, arnObj,
-            arnObj[subUrb]= adminObj.Suburb, arnObj,
-            arnObj[tanNumber]= adminObj['Tax identification number in your home country'], arnObj  
-        );
-        arnlist.push(arnObj)
-    }
-
-    this.http.post(baseUrl+'/arnRegistration',arnlist
+    this.http.post(baseUrl+'/arnRegistration',arnObject
     ).subscribe((resp:ArnRegister) => {
       callback(resp);
       if (resp) {
@@ -60,8 +25,8 @@ export class AdminService {
       }
     }, (error) => {
       console.error(error);
-    });
-  }
+    })
+  };
 
   adminLogin( loginObject, callback): any {
     this.http.get(baseUrl+'/adminLogin', {

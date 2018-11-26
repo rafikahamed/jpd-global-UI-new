@@ -35,6 +35,9 @@ import { ArticleComponent } from './article/article.component';
 import { ImportComponent } from './import/import.component';
 import { ExportComponent } from './export/export.component';
 import { ParcelDownloadComponent } from './parcel-download/parcel-download.component';
+import { ARNAdminUploadComponent } from './arn-admin-upload/arn-admin-upload.component';
+import { ARNAdminSignUpComponent } from './arn-admin-signup/arn-admin-signup.component';
+import { ARNAdminDownloadComponent } from './arn-admin-download/arn-admin-download.component';
 import { AgGridModule } from "ag-grid-angular/main";
 import { DropdownModule } from 'primeng/dropdown';
 
@@ -60,7 +63,7 @@ import { DropdownModule } from 'primeng/dropdown';
           { path: "depot-services", component: DepotComponent},
           { path: "resource-gst", component: GstComponent},
           { path: "pricing", component: PriceComponent},
-          { path: "contact",  component: ContactComponent},
+          // { path: "contact",  component: ContactComponent},
           { path: "about", component: AboutComponent},
           { path: "jpd/arn-registration", component: ArnRegistrationComponent},
           { path: "arn-registration/admin", component: ArnRegistrationAdminComponent},
@@ -70,7 +73,10 @@ import { DropdownModule } from 'primeng/dropdown';
           { path: "resource-article", component: ArticleComponent},
           { path: "gst-service/import", component: ImportComponent},
           { path: "gst-service/export", component: ExportComponent},
-          { path: "gst-service/download", component: ParcelDownloadComponent}
+          { path: "gst-service/download", component: ParcelDownloadComponent},
+          { path: "arn-register/admin", component: ARNAdminUploadComponent},
+          { path: "arn-register/signUp", component: ARNAdminSignUpComponent},
+          { path: "arn-register/download", component: ARNAdminDownloadComponent},
     ], { useHash: true }),
     UiModule
   ],
@@ -97,7 +103,10 @@ import { DropdownModule } from 'primeng/dropdown';
     ArticleComponent,
     ImportComponent,
     ExportComponent,
-    ParcelDownloadComponent
+    ParcelDownloadComponent,
+    ARNAdminUploadComponent,
+    ARNAdminSignUpComponent,
+    ARNAdminDownloadComponent
   ],
   entryComponents: [
     

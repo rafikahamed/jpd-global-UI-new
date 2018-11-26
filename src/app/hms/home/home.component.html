@@ -1,19 +1,4 @@
-  <!-- Mp Color -->
-  <div class="mp-color">
-    <div class="icon inOut"><i class="fa fa-cog fa-spin"></i></div>
-    <h4>Choose Color</h4>
-    <span class="color1"></span>
-    <span class="color2"></span>
-    <span class="color3"></span>
-    <span class="color4"></span>
-    <span class="color5"></span>
-    <span class="color6"></span>
-    <span class="color7"></span>
-    <span class="color8"></span>
-  </div>
-  <!--/ ENd Mp Color -->
-
-  <!-- Start Header -->
+<!-- Start Header -->
   <header id="header">
     <div class="container">
       <div class="row">
@@ -37,7 +22,7 @@
                   <!-- <li><a href="#why-choose">Why Choose</a></li> -->
                   <!-- <li><a href="#portfolio">Portfolio</a></li>		 -->
                   <li><a href="#resource">Resources</a></li>		
-                  <li><a href="#location">Contact US</a></li>
+                  <li><a href="#contact">Contact US</a></li>
                   <li><a routerLink="/login">Login</a></li>
                 </ul>
               </div>
@@ -59,27 +44,10 @@
             <div class="col-md-8 col-sm-12 col-xs-12">
               <div class="slide-text left">
                 <div class="slider-inner">
-                  <h1><span></span>IMPORT TAX SPEACIALISTS</h1>
-                  <p>Preparing to challenge the changes in e-Commerce World</p>
+                  <h1><span></span>Import Tax Compliance Software (ITCS)</h1>
+                  <p>Compliance software purpose built for the changes in import tax regulations. ITCS is reliable, compliant and our experts are here to support your business  </p>
                   <div class="slide-button">
-                    <a href="#location" class="button primary">Contact Us</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="single-slider" style="background-image:url(../../../assets/img/Logistics-1.jpg);" >
-        <div class="container">
-          <div class="row">
-            <div class="col-md-8 col-sm-12 col-xs-12">
-              <div class="slide-text left">
-                <div class="slider-inner">
-                  <h1><span></span>FREIGHT SERVICES</h1>
-                  <p>Preparing to challenge the changes in e-Commerce World</p>
-                  <div class="slide-button">
-                    <a href="#" class="button primary">Contact Us</a>
+                    <a href="#contact" class="button primary">Contact Us</a>
                   </div>
                 </div>
               </div>
@@ -187,48 +155,52 @@
       <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12 wow fadeIn">
           <div class="section-title center">
-            <h2>Our <span>Service</span></h2>
-            <p>Combining our range of services, we can tailor a solution to meet any logistical requirement.</p>
+            <h2>Our <span>ITCS</span></h2>
+            <!-- <p>Combining our range of services, we can tailor a solution to meet any logistical requirement.</p> -->
           </div>
         </div>
       </div>
       <div class="row">
         <!-- Single Service -->
-        <div class="col-md-3 col-sm-6 col-xs-12 wow fadeIn" data-wow-delay="0.4s">
-          <div class="single-service">
-            <i class="fa fa-check"></i>
-            <h2>ARN Registration</h2>
-            <p>• JPD Global will complete this on behalf of the seller.</p>
+          <div class="col-md-3 col-sm-6 col-xs-12 wow fadeIn" data-wow-delay="0.6s">
+              <div class="single-service">
+                <i class="fa fa-edit"></i>
+                <h2>Information</h2>
+                <p>• ITCS is a user friendly cloud based compliance software  </p>
+              </div>
           </div>
-        </div>
         <!--/ End Single Service -->
-        <!-- Single Service -->
-        <div class="col-md-3 col-sm-6 col-xs-12 wow fadeIn" data-wow-delay="0.6s">
-          <div class="single-service">
-            <i class="fa fa-edit"></i>
-            <h2>Information</h2>
-            <p>• Assist seller with new requirements placed upon them by the ATO including time of sale requirements	</p>
-          </div>
-        </div>
-        <!--/ End Single Service -->
+
         <!-- Single Service -->
         <div class="col-md-3 col-sm-6 col-xs-12 wow fadeIn" data-wow-delay="0.8s">
-          <div class="single-service">
-            <i class="fa fa-send"></i>
-            <h2>Ensure Compliance</h2>
-            <p>• Our system is designed to comply with all regulations.</p>
+            <div class="single-service">
+              <i class="fa fa-send"></i>
+              <h2>API</h2>
+              <p>• Alternatively ITCS offers API integration.</p>
+            </div>
+        </div>
+        <!--/ End Single Service -->
+
+        <!-- Single Service -->
+        <div class="col-md-3 col-sm-6 col-xs-12 wow fadeIn resource-click" data-wow-delay="0.4s">
+          <div class="single-service" (click)="arnchange()" >
+            <i class="fa fa-check"></i>
+            <h2>ARN Registration</h2>
+            <p>• Included as part of the ITCS package   </p>
           </div>
         </div>
         <!--/ End Single Service -->
+      
         <!-- Single Service -->
         <div class="col-md-3 col-sm-6 col-xs-12 wow fadeIn" data-wow-delay="0.4s">
               <div class="single-service">
                 <i class="fa fa-check"></i>
-                <h2>Assistance </h2>
-                <p>•	We understand the new laws are quite confusing and we are able to provide current information, handle any queries arising from the new processes and ensure compliance  </p>
+                <h2> Customer Service </h2>
+                <p>•	Included as part of the ITCS package we will tailor a solution to the sellers needs  </p>
               </div>
         </div>
         <!--/ End Single Service -->
+        
       </div>
     </div>
   </section>
@@ -264,7 +236,7 @@
             <ul class="nav nav-tabs" role="tablist">
               <li role="presentation" class="active"><a href="#welcome"  data-toggle="tab">What we do best</a></li>
               <li role="presentation"><a href="#about" data-toggle="tab">Our reach</a></li>
-              <li role="presentation"><a href="#information"  data-toggle="tab">Our background</a></li>
+              <!-- <li role="presentation"><a href="#information"  data-toggle="tab">Our background</a></li> -->
             </ul>
             <!--/ End Tab Nav -->
             <!-- Tab Content -->
@@ -292,8 +264,8 @@
                       <p>   .	iFrame </p>
                     </div>
                     
-                  </div>
-                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
                     
                       <div class="single-tab">
                         <i class="fa fa-rocket"></i>
@@ -319,11 +291,11 @@
                   <p>With our combined experience and interest in the industry, JPD Global is able to offer a vast array of services to the eCommerce and freight forwarding industry while keeping up to date with relevant industry legislation and policy to advise and execute the best solution possible every time. </p>
                 </div>
               </div>
-              <div role="tabpanel" class="tab-pane fade in" id="information">
+              <!-- <div role="tabpanel" class="tab-pane fade in" id="information">
                   <p>Dwayne's broad experience and endless contacts in the industry allow us to be at the forefront of the changes that will shape the industry in years to come.</p>
                   <p>Haojie's (Jack) strong network of connections in Australasia allows JPD to competitively service the global market.</p>
                   <p>Chris’s operational knowledge in the import/ export industry has allowed him to create ongoing relations with relevant governing bodies. This allows JPD to offer a diverse range of services to the market.</p>      
-              </div>
+              </div> -->
             </div>
             <!--/ End Tab Content -->
           </div>
@@ -341,7 +313,7 @@
             <div class="col-md-12 col-sm-12 col-xs-12 wow fadeIn">
               <div class="section-title center">
                 <h2> <span>Resources</span></h2>
-                <p>Combining our range of services, we can tailor a solution to meet any logistical requirement.</p>
+                <!-- <p>Combining our range of services, we can tailor a solution to meet any logistical requirement.</p> -->
               </div>
             </div>
           </div>
@@ -442,7 +414,7 @@
   <!--/ End Clients Us -->
 
   <!-- Location -->
-  <section id="location" class="section" style="padding: 20px">
+  <!-- <section id="location" class="section" style="padding: 20px">
     <div class="container">
       <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12 wow fadeIn">
@@ -454,36 +426,30 @@
       </div>
       <div class="row">
         <div class="col-md-4 col-sm-4 col-xs-12 wow fadeIn" data-wow-delay="0.4s">
-          <!-- Single Address -->
           <div class="single-address">
             <i class="fa fa-phone"></i>
             <h4>Our Phone</h4>
             <p>	+61470271180 </p>
           </div>
-          <!--/ End Single Address -->
         </div>
         <div class="col-md-4 col-sm-4 col-xs-12 wow fadeIn" data-wow-delay="0.6s">
-          <!-- Single Address -->
           <div class="single-address active">
             <i class="fa fa-phone"></i>
             <h4></h4>
             <p>Ground Floor, Suite 3, 410 Church Street, North Parramatta, NSW - 2151.</p>
           </div>
-          <!--/ End Single Address -->
         </div>
         <div class="col-md-4 col-sm-4 col-xs-12 wow fadeIn" data-wow-delay="0.8s">
-          <!-- Single Address -->
           <div class="single-address">
             <i class="fa fa-phone"></i>
             <h4>Corporate Email</h4>
             <p>gst@jpdglobal.com.au</p>
           </div>
-          <!--/ End Single Address -->
         </div>
 
       </div>
     </div>
-  </section>
+  </section> -->
   <!--/ End Location -->
 
   <!-- Start Footer -->

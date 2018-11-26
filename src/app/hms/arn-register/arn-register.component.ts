@@ -98,7 +98,7 @@ export class ArnRegistrationComponent {
        if(this.userMessage.message == "Admin Logged In Successfully"){
          this.spinner.hide();
          $('#myModal').modal('toggle');
-         this.router.navigate(['/arn-registration/admin']);
+         this.router.navigate(['arn-register/admin']);
        }
        if(this.userMessage.message == "User dose not have access to login"){
          this.spinner.hide();
