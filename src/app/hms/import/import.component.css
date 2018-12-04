@@ -18,7 +18,7 @@ body{
 .fileupload_panel{
     width: 100%; 
     border: 2px solid #ccc; 
-    height: 600px; 
+    height: 500px; 
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); 
     margin-bottom: 10px; 
     font-size: 16px;
@@ -130,7 +130,7 @@ body{
     text-shadow:1px 1px #000
 }
 .menu_section>ul{
-    margin-top:10px
+    /* margin-top:10px */
 }
 .profile_pic{
     width:35%;
@@ -152,9 +152,9 @@ body{
     float:left
 }
 .profile_info span{
-    font-size:13px;
-    line-height:30px;
-    color:#BAB8B8
+    font-size: 15px;
+    line-height: 30px;
+    color: #fdfcfc;
 }
 .profile_info h2{
     font-size:14px;
@@ -443,8 +443,8 @@ body .container.body .right_col{
 }
 
 .tile_count{
-    margin-bottom:20px;
-    margin-top:20px
+    margin-bottom:10px;
+    /* margin-top:10px */
 }
 .tile_count .tile_stats_count{
     border-bottom:1px solid #D9DEE4;

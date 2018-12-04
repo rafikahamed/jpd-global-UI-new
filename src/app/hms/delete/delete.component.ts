@@ -10,12 +10,18 @@ import { Angular2Csv } from 'angular2-csv/Angular2-csv';
 import * as XLSX from 'xlsx';
 declare var $: any;
 
+interface dropdownTemplate {
+  name: string;
+  value: string;
+}
+
 @Component({
-  selector: 'hms-import',
-  templateUrl: './import.component.html',
-  styleUrls: ['./import.component.css']
+  selector: 'hms-delete',
+  templateUrl: './delete.component.html',
+  styleUrls: ['./delete.component.css']
 })
-export class ImportComponent implements OnInit{
+export class DeleteComponent implements OnInit{
+
     private gridOptions: GridOptions;
     private autoGroupColumnDef;
     private rowGroupPanelShow;
@@ -26,9 +32,11 @@ export class ImportComponent implements OnInit{
     errorMsg: String;
     errorDetails: any[];
     errorDetails1: String;
+    timePeriodDropdown: dropdownTemplate[];  
+    selectedTimePeriod:  dropdownTemplate;
     file:File;
     arrayBuffer:any;
-    fileData: File_Data[];
+    downloadData: File_Data[];
     childmenuOne: boolean;
     childmenuTwo:boolean;
     childmenuThree:boolean;
@@ -52,16 +60,15 @@ export class ImportComponent implements OnInit{
     currentDate: String;
     currencyUpdatedTime: String;
     public importList = [];
-    timePeriod = ['Q1 – Jul 1st to Sep 30th', 'Q2 – Oct 1st to Dec 31st', 'Q3 – Jan 1st to Mar 31st', 'Q4 – Apr 1st to Jun 30th'];
-    FileHeading = ['Value', 'Sale Date', 'Currency', 'GST Eligible', 'Reference Number', 'User Code'];
-    allowedCurrency = ['USD', 'CNY', 'JPY', 'EUR', 'KRW', 'SGD', 'NZD', 'GBP', 'MYR', 'THB', 'IDR', 'INR', 'TWD', 'VND', 'HKD', 'PGK', 'CHF', 'AED', 'CAD', 'AUD'];
-    constructor(
+    timePeriod : String;
+   constructor(
       public parcelservice: ParcelService, 
       private router: Router,
       private spinner: NgxSpinnerService
     ){
         this.errorMsg = null;
         this.successMsg = null;
+        this.timePeriodDropdown = [];
         this.level= null;
         this.access = null;
         this.userName = null;
@@ -71,44 +78,43 @@ export class ImportComponent implements OnInit{
         this.importSumValue = '0';
         this.exportSumValue = '0';
         this.downLoadFlag = false;
-        this.currentDate = this.formatDate(new Date());
         this.successMsg = null;
         this.errorMsg = null;
         this.show = false;
         this.gridOptions = <GridOptions>{rowSelection: "multiple"};
         this.gridOptions.columnDefs = [
         {
+            headerName: "Reference No",
+            field: "referenceNo",
+            width: 150,
+            checkboxSelection: true,
+            headerCheckboxSelection: function(params) {
+              return params.columnApi.getRowGroupColumns().length === 0;
+            }
+        },
+        {
           headerName: "User Code",
-          field: "user_code",
-          width: 180,
-          checkboxSelection: true,
-          headerCheckboxSelection: function(params) {
-            return params.columnApi.getRowGroupColumns().length === 0;
-          }
+          field: "userCode",
+          width: 150
         },
         {
           headerName: "GST Eligible ",
-          field: "GST_eligible",
-          width: 180
-        },
-        {
-          headerName: "Reference No",
-          field: "reference_no",
+          field: "gstEligible",
           width: 150
         },
         {
           headerName: "currency Code",
-          field: "currency_code",
-          width: 200
+          field: "currencyCode",
+          width: 150
         },
         {
           headerName: "Amount",
           field: "amount",
-          width: 150
+          width: 130
         },
         {
           headerName: "Aud Converted Value",
-          field: "aud_converted_value",
+          field: "audConvertedAmount",
           width: 150
         },
         {
@@ -118,8 +124,19 @@ export class ImportComponent implements OnInit{
         },
         {
           headerName: "GST Payable",
-          field: "gst_payable",
+          field: "gstPayable",
+          width: 120
+        },
+        {
+          headerName: "Report Indicator",
+          field: "reportIndicator",
           width: 150
+
+        },
+        {
+          headerName: "File Name",
+          field: "fileName",
+          width: 300
         }
       ];
       this.autoGroupColumnDef = {
@@ -131,137 +148,9 @@ export class ImportComponent implements OnInit{
       this.defaultColDef = {
         editable: true
       };
-    }
-    
-    formatDate(date) {
-      var d = new Date(date),
-          month = '' + (d.getMonth() + 1),
-          day = '' + d.getDate(),
-          year = d.getFullYear();
-  
-      if (month.length < 2) month = '0' + month;
-      if (day.length < 2) day = '0' + day;
-  
-      return [day, month, year].join('-');
     };
 
-    importFileUpload() {
-      var worksheet;
-      var currentTime = new Date();
-      this.importSumValue = null;
-      this.errorMsg = null;
-      this.successMsg = null;
-      this.fileData = null;
-      let fileReader = new FileReader();
-      fileReader.readAsArrayBuffer(this.file);
-      fileReader.onload = (e) => {
-            this.arrayBuffer = fileReader.result;
-            var data = new Uint8Array(this.arrayBuffer);
-            var arr = new Array();
-            for(var i = 0; i != data.length; ++i) arr[i] = String.fromCharCode(data[i]);
-            var bstr = arr.join("");
-            var workbook = XLSX.read(bstr, {type:"binary"});
-            var first_sheet_name = workbook.SheetNames[0];
-            var worksheet = workbook.Sheets[first_sheet_name];
-            //Validation for file containing fields
-            var importData = XLSX.utils.sheet_to_json(worksheet);
-            console.log(importData);
-            for (var importVal in importData) {
-                var importObj = importData[importVal];
-                  for(var importKey in importObj){
-                    var newLine = "\r\n"
-                    if(!this.FileHeading.includes(importKey)){
-                      this.errorMsg = "***Invalid file format, Please check the field in given files"+ 
-                      newLine + "Allowed fields are [ Value, Sale Date, Currency, GST Eligible, Reference Number, User Code]";
-                      break;
-                    }
-  
-                    if(importKey === 'Sale Date'){
-                      var rxDatePattern = /^(\d{1,2})(\/|-)([a-zA-Z]{3})(\/|-)(\d{4})$/;
-                      if(!importObj[importKey].match(rxDatePattern)){
-                        this.errorMsg = "***Invalid Sale Date – Please enter the valid date format - DD-MMM-YYYY"
-                        break;
-                      }
-                    }
-  
-                    if(importKey === 'GST Eligible'){
-                      if( !(importObj[importKey].toUpperCase() === 'Y' || importObj[importKey].toUpperCase() === 'N')){
-                        this.errorMsg = "***Invalid input code – Please enter “Y” or “N” or “Blank”"
-                        break;
-                      }
-                    }else{
-                      //console.log("GST Eligible Is blank--->")
-                    }
-  
-                    if( importKey === 'Currency'){
-                      if(!this.allowedCurrency.includes(importObj[importKey].toUpperCase())){
-                        this.errorMsg = "***Invalid currency code"+ 
-                        newLine + "Allowed Currency's are [ USD, CNY, JPY, EUR, KRW, SGD, NZD, GBP, MYR, THB, IDR, INR, TWD, VND, HKD, PGK, CHF, AED, CAD, AUD]";
-                        break;
-                      }
-                    }
-  
-                    if(importKey === 'Value'){
-                      if(isNaN(importObj[importKey])){
-                        this.errorMsg = "***Invalid Value, Value should be in numeric"
-                         break;
-                      }
-                    }
-                }
-            };
-            if( this.errorMsg == null ){
-                this.importData = XLSX.utils.sheet_to_json(worksheet);
-            };
-      }
-    };
-
-    clearImport(){
-      $("#fileControl").val('');
-    };
-
-    ImportUpload(){
-      this.spinner.show();
-      var today = new Date();
-      var day = today.getDate() + "";
-      var month = (today.getMonth() + 1) + "";
-      var year = today.getFullYear() + "";
-      var hour = today.getHours() + "";
-      var minutes = today.getMinutes() + "";
-      var seconds = today.getSeconds() + "";
-
-      day = checkZero(day);
-      month = checkZero(month);
-      year = checkZero(year);
-      hour = checkZero(hour);
-      minutes = checkZero(minutes);
-      seconds = checkZero(seconds);
-
-      function checkZero(data){
-        if(data.length == 1){
-          data = "0" + data;
-        }
-        return data;
-      }
-      var dateString = day + "/" + month + "/" + year + " " + hour + ":" + minutes + ":" + seconds;
-              this.parcelservice.importService(this.importData, this.file.name+"-"+dateString,(resp) => {
-                if( resp[0].errMessage != null){
-                  this.errorMsg = resp[0].errMessage;
-                  $('#fileUploadModal').modal('show');
-                }else{
-                  this.fileData = resp;
-                  this.rowData = this.fileData;
-                  $('#fileUploadModal').modal('show');
-                  this.successMsg = "File data uploaded and GST calculated successfully";
-                  this.parcelservice.importGstSum('I' ,(resp) => {
-                    this.importSumValue = resp.importGst;
-                    this.currencyUpdatedTime = resp.lastCurrencyUpdatedTime;
-                  });
-                }
-                this.spinner.hide();
-              });
-    };
-
-    DownLoadGstReport(){
+    DownLoadGstExportReport(){
       var selectedRows = this.gridOptions.api.getSelectedRows();
       this.errorMsg = '';
       this.successMsg = '';
@@ -270,7 +159,7 @@ export class ImportComponent implements OnInit{
         var currentTime = new Date();
         var importList = [];
         var fileName = '';
-            fileName = "Import-Gst-Details"+"-"+currentTime.toLocaleDateString();
+            fileName = "Export-Gst-Details"+"-"+currentTime.toLocaleDateString();
           var options = { 
             fieldSeparator: ',',
             quoteStrings: '"',
@@ -310,8 +199,20 @@ export class ImportComponent implements OnInit{
           };
           new Angular2Csv(importList, fileName, options);
       }else{
-         this.errorMsg = "**Please select the below records to Download the GST calculated data";
+         this.exportErrorMsg = "**Please select the below records to Download the GST calculated data";
       }
+    };
+
+    onFileTypeDropdownchange(event){
+      this.fileType = event.value.value;
+    };
+
+    fileSearch(){
+      this.spinner.show();
+      this.parcelservice.importExportDetails(this.fileType ,(resp) => {
+        this.spinner.hide();
+        this.rowData = resp;
+      });
     };
 
     ngOnInit() {
@@ -320,25 +221,33 @@ export class ImportComponent implements OnInit{
       this.childmenuThree = false;
       this.childmenuFour  = false;
       this.childmenuFive = false;
-
       this.userDetails = null;
       this.getLoginDetails();
+      this.spinner.show();
+      
+      this.parcelservice.fileDetails((resp) => {
+        this.spinner.hide();
+        this.timePeriodDropdown = resp;
+        this.fileType = this.timePeriodDropdown[0].value;
+      });
+      
       this.parcelservice.importGstSum('I' ,(resp) => {
         this.importSumValue = resp.importGst;
         this.currencyUpdatedTime = resp.lastCurrencyUpdatedTime;
       });
+      
       this.parcelservice.importGstSum('E' ,(resp) => {
         this.exportSumValue = resp.exportGst;
         this.currencyUpdatedTime = resp.lastCurrencyUpdatedTime;
       });
-
+      
       this.router.events.subscribe((evt) => {
         if (!(evt instanceof NavigationEnd)) {
             return;
         }
         window.scrollTo(0, 0)
       });
-    }
+    };
 
     getLoginDetails(){
       if(this.parcelservice.userMessage != undefined){
@@ -347,12 +256,11 @@ export class ImportComponent implements OnInit{
         this.access = this.parcelservice.userMessage.access;
         this.companyName = this.parcelservice.userMessage.companyName;
         this.userCode = this.parcelservice.userMessage.userCode;
-  
         if(this.parcelservice.userMessage.access == "level 2"){
           this.downLoadFlag =true;
         }
       }
-    }
+    };
   
     toggle(arrow) {
       this.childmenuOne = !this.childmenuOne;
@@ -364,19 +272,45 @@ export class ImportComponent implements OnInit{
         arrow.className = '';
         arrow.className = 'fa fa-chevron-down';
       }
-    }
+    };
 
-    incomingfile(event) {
-      this.rowData = [];
-      this.file = event.target.files[0]; 
-      this.importFileUpload();
-    }
+    downLoad(){
+      this.spinner.show();
+      this.parcelservice.downLoad(this.timePeriod, this.fileType, (resp) => {
+        this.spinner.hide();
+        this.downloadData = resp;
+        this.rowData = this.downloadData;
+      })
+    };
+
+    deleteImportExport(){
+      var selectedRows = this.gridOptions.api.getSelectedRows();
+      var refrenceNumList = [];
+      for (var labelValue in selectedRows) {
+            var labelObj = selectedRows[labelValue];
+            refrenceNumList.push(labelObj.referenceNo)
+      };
+      if(selectedRows.length > 0){
+        this.spinner.show();
+        this.parcelservice.deleteImportExport(refrenceNumList, (resp) => {
+            this.spinner.hide();
+            this.successMsg = resp.message;
+            if(!resp){
+            }
+            setTimeout(() => {
+              this.spinner.hide();
+            }, 5000);
+          });
+        }else{
+              this.errorMsg = 'Please select the below records to delete the entry';
+        }
+    };
 
     onSelectionChange() {
       this.errorMsg = '';
       this.successMsg = '';
       var selectedRows = this.gridOptions.api.getSelectedRows();
-    }
+    };
  
 }
 

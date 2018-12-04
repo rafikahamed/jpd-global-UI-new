@@ -1,6 +1,6 @@
 import { Component, ElementRef, ViewChild, OnInit} from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import 'rxjs/add/operator/filter';
 import { ParcelService } from 'app/hms/service/parcel.service';
 import { LoginService } from 'app/hms/service/login.service';
@@ -255,6 +255,13 @@ export class ParcelDownloadComponent implements OnInit{
       this.parcelservice.importGstSum('E' ,(resp) => {
         this.exportSumValue = resp.exportGst;
         this.currencyUpdatedTime = resp.lastCurrencyUpdatedTime;
+      });
+
+      this.router.events.subscribe((evt) => {
+        if (!(evt instanceof NavigationEnd)) {
+            return;
+        }
+        window.scrollTo(0, 0)
       });
     };
 

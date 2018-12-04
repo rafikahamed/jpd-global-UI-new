@@ -1,6 +1,6 @@
 import { Component, ElementRef, ViewChild, OnInit} from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import 'rxjs/add/operator/filter';
 import { ParcelService } from 'app/hms/service/parcel.service';
 import { LoginService } from 'app/hms/service/login.service';
@@ -256,7 +256,7 @@ export class ExportComponent implements OnInit{
           this.spinner.hide();
         });
       }
-    }
+    };
 
     DownLoadGstExportReport(){
       var selectedRows = this.gridOptions.api.getSelectedRows();
@@ -323,6 +323,13 @@ export class ExportComponent implements OnInit{
         this.exportSumValue = resp.exportGst;
         this.currencyUpdatedTime = resp.lastCurrencyUpdatedTime;
       });
+
+      this.router.events.subscribe((evt) => {
+        if (!(evt instanceof NavigationEnd)) {
+            return;
+        }
+        window.scrollTo(0, 0)
+      });
     };
 
     getLoginDetails(){
@@ -337,7 +344,7 @@ export class ExportComponent implements OnInit{
           this.downLoadFlag =true;
         }
       }
-    }
+    };
   
     toggle(arrow) {
       this.childmenuOne = !this.childmenuOne;
@@ -349,79 +356,23 @@ export class ExportComponent implements OnInit{
         arrow.className = '';
         arrow.className = 'fa fa-chevron-down';
       }
-    }
-  
-    toggle_zebra(arrow) {
-      this.childmenuTwo = !this.childmenuTwo;
-      if (arrow.className === 'fa fa-chevron-down') {
-        arrow.className = '';
-        arrow.className = 'fa fa-chevron-up';
-      }
-      else {
-        arrow.className = '';
-        arrow.className = 'fa fa-chevron-down';
-      }
-    }
-  
-    toggle_pdf(arrow) {
-      this.childmenuThree = !this.childmenuThree;
-      if (arrow.className === 'fa fa-chevron-down') {
-        arrow.className = '';
-        arrow.className = 'fa fa-chevron-up';
-      }
-      else {
-        arrow.className = '';
-        arrow.className = 'fa fa-chevron-down';
-      }
-    }
-  
-    toggle_utilities(arrow){
-      this.childmenuFour = !this.childmenuFour;
-      if (arrow.className === 'fa fa-chevron-down') {
-        arrow.className = '';
-        arrow.className = 'fa fa-chevron-up';
-      }
-      else {
-        arrow.className = '';
-        arrow.className = 'fa fa-chevron-down';
-      }
-    }
-  
-    toggle_maniFest(arrow){
-      this.childmenuFive = !this.childmenuFive;
-      if (arrow.className === 'fa fa-chevron-down') {
-        arrow.className = '';
-        arrow.className = 'fa fa-chevron-up';
-      }
-      else {
-        arrow.className = '';
-        arrow.className = 'fa fa-chevron-down';
-      }
-    }
-  
-    sidebartoggle(arrow) {
-      this.childmenuOne = !this.childmenuOne;
-      if (arrow.className === 'nav-md') {
-        arrow.className = '';
-        arrow.className = 'nav-sm';
-      }
-      else {
-        arrow.className = '';
-        arrow.className = 'nav-md';
-      }
-    }
+    };
 
     incomingfile(event) {
       this.rowData = [];
       this.file = event.target.files[0]; 
       this.exportFileUpload();
-    }
+    };
 
     onSelectionChange() {
       this.errorMsg = '';
       this.successMsg = '';
       var selectedRows = this.gridOptions.api.getSelectedRows();
-    }
+    };
+
+    clearExport(){
+      $("#fileControlExport").val('');
+    };
  
 }
 

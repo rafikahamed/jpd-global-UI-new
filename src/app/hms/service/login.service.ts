@@ -6,7 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 
 const baseUrl = "https://www.jpdglobal.com.au/v1/logistics";
-//const baseUrl = "http://localhost:8080/v1/logistics";
+// const baseUrl = "http://localhost:8080/v1/logistics";
 @Injectable()
 export class LoginService implements OnInit{
   public newUserSubject = new Subject<any>();

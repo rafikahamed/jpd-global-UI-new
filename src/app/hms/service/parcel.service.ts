@@ -84,7 +84,41 @@ export class ParcelService {
     }, (error) => {
       console.error(error);
     });
-  }
+  };
+
+  fileDetails(callback): any {
+    this.http.get(baseUrl+'/fileName'
+    ).subscribe((resp) => {
+      callback(resp);
+    }, (error) => {
+      console.error(error);
+    });
+  };
+
+  importExportDetails(fileName, callback): any{
+    this.http.get(baseUrl+'/importExportDetails', {
+      params: { fileName: fileName }
+    }).subscribe((resp) => {
+      callback(resp);
+    }, (error) => {
+      console.error(error);
+    });
+  };
+
+  deleteImportExport( refrenceNumber, callback): any {
+    this.http.get(baseUrl+'/deleteGstEntry', {
+      params: { reference_no: refrenceNumber }
+    }).subscribe((resp) => {
+      callback(resp);
+      if (resp) {
+        
+      } else {
+        console.error("Not Found!")
+      }
+    }, (error) => {
+      console.error(error);
+    });
+};
 
   exportService( loginObject, fileValue, callback): any {
     var results = loginObject;
@@ -118,7 +152,6 @@ export class ParcelService {
         );
         exportList.push(exportObj)
     }
-    //console.log(exportList);
     this.http.post(baseUrl+'/export',exportList
     ).subscribe((resp:FileData_Export) => {
       callback(resp);

@@ -4,56 +4,40 @@
         
           <div class="col-md-3 left_col">
               <div class="left_col scroll-view">
-              <div class="clearfix"></div>
-                    <div class="profile clearfix">
-                        <div class="profile_pic">
-                        <img src="../../../assets/img/user.png" alt="..." class="img-circle profile_img">
+                <div class="clearfix"></div>
+                        <div class="profile clearfix">
+                            <div class="profile_pic">
+                            <img src="../../../assets/img/user.png" alt="..." class="img-circle profile_img">
+                            </div>
+                            <div class="profile_info">
+                            <span>Welcome,</span>
+                            <h2>{{userName}}</h2>
                         </div>
-                        <div class="profile_info">
-                        <span>Welcome,</span>
-                        <h2>{{userName}}</h2>
-                    </div>
-              </div>
-             
-              <br/>
-
-              <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-                  <div class="menu_section">
-                      <ul class="nav side-menu">
-                      <li>
-                          <a (click)="toggle(arrow)"><i class="fa fa-home"></i> GST Services <span class="fa fa-chevron-down" #arrow></span></a>
-                          <ul class="nav child_menu" [ngStyle]="{'display': !childmenuOne ? 'block' : 'none'}">
-                            <li><a routerLink="/gst-service/import"> Upload File - Import Parcel</a></li>
-                            <li><a routerLink="/gst-service/export"> Upload File - Export Parcel</a></li>
-                            <li *ngIf="downLoadFlag"><a routerLink="/gst-service/download"> Download Report</a></li>
-                          </ul>
-                      </li>
-                     
-                      </ul>
-                  </div>
-              </div>
+                </div>
+                
+                <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                        <div class="menu_section">
+                            <ul class="nav side-menu">
+                            <li>
+                                <a (click)="toggle(arrow)">
+                                <i class="fa fa-home"> </i> GST Services 
+                                    <span class="fa fa-chevron-down" #arrow></span></a>
+                                <ul class="nav child_menu" [ngStyle]="{'display': !childmenuOne ? 'block' : 'none'}">
+                                <li><a routerLink="/gst-service/import"> Upload File - Import Parcel</a></li>
+                                <li><a routerLink="/gst-service/export"> Upload File - Export Parcel</a></li>
+                                <li><a routerLink="/gst-service/delete"> Delete Import / Export Entry</a></li>
+                                <li *ngIf="downLoadFlag" ><a routerLink="/gst-service/download"> Download Report</a></li>
+                                </ul>
+                            </li>
+                            <li><a routerLink="/home">
+                                <i class="fa fa-sign-out"></i> Logout</a>
+                            </li>
+                            </ul>
+                        </div>
+                </div>
 
               </div>
           </div>
-
-          <div class="top_nav">
-                <nav>
-                        <ul class="nav navbar-nav navbar-right">
-                        <li class="">
-                                <a href="javascript:;" class="user-profile dropdown-toggle" 
-                                data-toggle="dropdown" aria-expanded="false">
-                                <img src="../../../assets/img/user.png" alt=""> {{userName}}
-                                <span class=" fa fa-angle-down"></span>
-                                </a>
-                                <ul class="dropdown-menu dropdown-usermenu pull-right">
-                                
-                                <li><a routerLink="/home"><i class="fa fa-sign-out pull-right"></i> 
-                                Log Out</a></li>
-                                </ul>
-                        </li>
-                        </ul>
-                </nav>   
-            </div>
 
   <!-- page content -->
   <div class="right_col" role="main">
@@ -163,7 +147,7 @@
                 <p> Please select the below records to download the GST data </p>
                   <div>
                       <ag-grid-angular 
-                                #agGrid style="width: 100%; height: 450px;" 
+                                #agGrid style="width: 100%; height: 400px;" 
                                 class="ag-theme-balham" 
                                 [autoGroupColumnDef]="autoGroupColumnDef"
                                 [rowData]="rowData"
@@ -196,8 +180,7 @@
                 <div class="row">
                   <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="text">
-                      <p>&copy; Copyright 2018<span><i class="fa fa-heart"></i></span>
-                          <a href="https://themewagon.com/" target="_blank">JPD</a> (Distributor)</p>
+                        <p>&copy; Copyright 2018<span> By </span><a>JPD Global</a> (Distributor)</p>
                     </div>
                   </div>
                 </div>
