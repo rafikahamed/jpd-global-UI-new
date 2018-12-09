@@ -3,8 +3,8 @@ import { Router } from "@angular/router";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Subject } from 'rxjs/Subject';
 
-const baseUrl = "https://www.jpdglobal.com.au/v1/logistics";
-// const baseUrl = "http://localhost:8080/v1/logistics";
+// const baseUrl = "https://www.jpdglobal.com.au/v1/logistics";
+const baseUrl = "http://localhost:8080/v1/logistics";
 @Injectable()
 export class ParcelService {
   userMessage: userMessage;
@@ -17,6 +17,7 @@ export class ParcelService {
   ){}
 
   getLoginDetails(data){
+    console.log(data)
     this.userMessage = data;
     this.newUserSubject.next(data);
   }
@@ -86,8 +87,10 @@ export class ParcelService {
     });
   };
 
-  fileDetails(callback): any {
-    this.http.get(baseUrl+'/fileName'
+  fileDetails(userName, callback): any {
+    this.http.get(baseUrl+'/fileName',{
+      params: { userName: userName }
+    }
     ).subscribe((resp) => {
       callback(resp);
     }, (error) => {

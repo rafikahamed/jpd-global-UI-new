@@ -13,7 +13,6 @@ declare var $: any;
 })
 
 export class ArnRegistrationUserComponent implements OnInit{
-
       file:File;
       errorMsg: string;
       userSignUpSuccessMsg: String;
@@ -24,14 +23,14 @@ export class ArnRegistrationUserComponent implements OnInit{
       hasError: Boolean;
       level: string;
       fileData: ArnRegister[];
-
+      termCheck: Boolean;
       constructor(
         private spinner: NgxSpinnerService,
         public userservice: UserService
       ){
         this.errorMsg = null;
         this.hasError = false;
-
+        this.termCheck = false;
         this.userSignUpFormOne = new FormGroup({
             businessType: new FormControl('', Validators.required),
             legalName: new FormControl('', Validators.required),
@@ -39,129 +38,66 @@ export class ArnRegistrationUserComponent implements OnInit{
             emailAddress: new FormControl('', Validators.required),
             phoneNumber: new FormControl('', Validators.required),
             postalAddress: new FormControl('', Validators.required)
-       });
-
-      this.userSignUpFormTwo = new FormGroup({
+        });
+        this.userSignUpFormTwo = new FormGroup({
             subUrb: new FormControl('', Validators.required),
             postCode: new FormControl('', Validators.required),
             country: new FormControl('', Validators.required),
             websiteName: new FormControl('', Validators.required),
             tanNumber: new FormControl('', Validators.required)
-      });
-  }
+        })
+    };
 
-  ngOnInit(){
-    console.log("inside the data");
-  }
-
-  arnFile(event){
-    this.file= event.target.files[0]; 
-  }
+    ngOnInit(){};
 
     termsAndCondition(termsCheck){
-        console.log(termsCheck.checked)
-        console.log("Aggreed terms and condition")
-    }
+        this.termCheck = termsCheck.checked;
+    };
 
-userSignUp(){
-    this.userSignUpSuccessMsg = null;
-    let finalUserObject = Object.assign(this.userSignUpFormOne.value, this.userSignUpFormTwo.value)
-    if( this.errorMsg == null ){
-        this.spinner.show();
-        this.userservice.arnRegistration(finalUserObject, '' ,(resp) => {
-            this.spinner.hide();
-
-              if( resp[0].message == "Unable to save the ARN Data"){
-                this.errorMsg = resp[0].message;
-              }else{
-                this.userSignUpSuccessMsg = resp[0].message;
-              }
-              if(!resp){
-                this.errorMsg = "Network Error!";
-              }
-        });
-      }
-      setTimeout(() => {
-        this.spinner.hide();
-      }, 10000);
-  }
-
-  textInput(){
-    this.validateForm();
-  }
-
-  validateForm(){
-    $('.input100').each(function(){
-        $(this).on('blur', function(){
-            if($(this).val().trim() != "") {
-                $(this).addClass('has-val');
-            }
-            else {
-                $(this).removeClass('has-val');
-            }
-        })    
-    })
-
-    /*==================================================================
-    [ Validate after type ]*/
-    $('.validate-input .input100').each(function(){
-        $(this).on('blur', function(){
-            if(validate(this) == false){
-                showValidate(this);
-            }
-            else {
-                $(this).parent().addClass('true-validate');
-            }
-        })    
-    })
-
-    /*==================================================================
-    [ Validate ]*/
-    var input = $('.validate-input .input100');
-
-    $('.validate-form').on('submit',function(){
-        var check = true;
-        for(var i=0; i<input.length; i++) {
-            if(validate(input[i]) == false){
-                showValidate(input[i]);
-                check=false;
-            }
+    userSignUp(){
+        this.userSignUpSuccessMsg = null;
+        this.errorMsg = null;
+        let finalUserObject = Object.assign(this.userSignUpFormOne.value, this.userSignUpFormTwo.value)
+        if(finalUserObject.businessType.length == 0){
+            this.errorMsg = "*Business Type cannot be blank";
+        }else if(finalUserObject.legalName.length == 0){
+            this.errorMsg = "*Legal name cannot be blank";
+        }else if(finalUserObject.authrorizedConatct.length == 0){
+            this.errorMsg = "*Authrorized Conatct cannot be blank";
+        }else if(finalUserObject.emailAddress.length == 0){
+            this.errorMsg = "*Email Address cannot be blank";
+        }else if(finalUserObject.phoneNumber.length == 0){
+            this.errorMsg = "*Phone Number cannot be blank"
+        }else if(finalUserObject.postalAddress.length == 0){
+            this.errorMsg = "*Postal Address cannot be blank"
+        }else if(finalUserObject.subUrb.length == 0){
+            this.errorMsg = "*SubUrb cannot be blank"
+        }else if(finalUserObject.postCode.length == 0){
+            this.errorMsg = "*PostCode cannot be blank"
+        }else if(finalUserObject.country.length == 0){
+            this.errorMsg = "*Country cannot be blank"
+        }else if(finalUserObject.websiteName.length == 0){
+            this.errorMsg = "*Website Name cannot be blank"
+        }else if(finalUserObject.tanNumber.length == 0){
+            this.errorMsg = "*Tax identification number cannot be blank"
+        }else if(!this.termCheck){
+            this.errorMsg = "*Please select the terms & condition to signup the ITCS service"
         }
-        return check;
-    });
-
-    $('.validate-form .input100').each(function(){
-        $(this).focus(function(){
-           hideValidate(this);
-           $(this).parent().removeClass('true-validate');
-        });
-    });
-
-    function validate (input) {
-        if($(input).attr('type') == 'email' || $(input).attr('name') == 'email') {
-           if($(input).val().trim().match(/^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{1,5}|[0-9]{1,3})(\]?)$/) == null) {
-                return false;
-            }else{
-            }
+        if( this.errorMsg == null ){
+            this.spinner.show();
+            this.userservice.arnRegistration(finalUserObject, '' ,(resp) => {
+                this.spinner.hide();
+                if( resp[0].message == "Unable to save the ARN Data"){
+                    this.errorMsg = resp[0].message;
+                }else{
+                    this.userSignUpSuccessMsg = "Thank you for signing up to ITCS. We will complete your ARN Registration and set up an account for access to the system. Once the process is complete you will receive an email from support@jpdglobal.com.au with your login credentials."
+                    $('#arnSignupModal').modal('show');
+                }
+                if(!resp){
+                    this.errorMsg = "Network Error!";
+                }
+            });
         }
-        else {
-            if($(input).val().trim() == ''){
-                return false;
-            }
-        }
-    }
-
-    function showValidate(input) {
-        var thisAlert = $(input).parent();
-
-        $(thisAlert).addClass('alert-validate');
-    }
-
-    function hideValidate(input) {
-        var thisAlert = $(input).parent();
-
-        $(thisAlert).removeClass('alert-validate');
-    }
   }
 
 }

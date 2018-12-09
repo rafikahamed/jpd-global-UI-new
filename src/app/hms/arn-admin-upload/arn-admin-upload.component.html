@@ -29,30 +29,16 @@
                                 <li><a routerLink="/arn-register/download"> Download Outstanding GST Report</a></li>
                               </ul>
                           </li>
+                          <li>
+                              <a routerLink="/home">
+                                <i class="fa fa-sign-out"></i> 
+                                  Logout
+                              </a>
+                          </li>
                           </ul>
                       </div>
                   </div>
                 </div>
-      </div>
-    
-      <!-- top navigation -->
-      <div class="top_nav">
-                  <nav>
-                      <ul class="nav navbar-nav navbar-right">
-                        <li class="">
-                            <a href="javascript:;" class="user-profile dropdown-toggle" 
-                                data-toggle="dropdown" aria-expanded="false">
-                            <img src="../../../assets/img/user.png" alt=""> {{this.userName}}
-                            <span class=" fa fa-angle-down"></span>
-                            </a>
-                            <ul class="dropdown-menu dropdown-usermenu pull-right">
-                            
-                            <li><a routerLink="/home"><i class="fa fa-sign-out pull-right"></i> 
-                              Log Out</a></li>
-                            </ul>
-                        </li>
-                      </ul>
-                  </nav>   
       </div>
     
       <div class="right_col" role="main">
@@ -107,9 +93,20 @@
 
               <div style="padding-top: 10px;">
                 <p style="float: left"> Select File : </p>
-                <input type="file" style="display: inline-block; margin-left:25px" (change)="incomingfile($event)" 
-                              placeholder="Upload file" accept=".xlsx, .xls">
+                <input type="file" 
+                      style="display: inline-block; margin-left:25px" 
+                      (change)="incomingfile($event)" 
+                      id="adminUploadFile"
+                      placeholder="Upload file" 
+                      accept=".xlsx, .xls">
               </div>
+
+              <button type="button" 
+                      class="btn btn-info" 
+                      (click)="clearAdminUpload()"
+                      style="background-color: #16A085; float:left; margin-left: 30%; margin-top: -25px">
+                      Refresh</button>
+
           </div>
 
           <div class="fileupload_panel">

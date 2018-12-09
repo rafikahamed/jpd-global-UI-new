@@ -3,7 +3,6 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { Router, NavigationEnd } from '@angular/router';
 import 'rxjs/add/operator/filter';
 import { ParcelService } from 'app/hms/service/parcel.service';
-import { LoginService } from 'app/hms/service/login.service';
 import { GridOptions } from "ag-grid";
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Angular2Csv } from 'angular2-csv/Angular2-csv';
@@ -30,10 +29,6 @@ export class ImportComponent implements OnInit{
     arrayBuffer:any;
     fileData: File_Data[];
     childmenuOne: boolean;
-    childmenuTwo:boolean;
-    childmenuThree:boolean;
-    childmenuFour:boolean;
-    childmenuFive:boolean;
     exportSuccessMsg: String;
     downloadErrorMsg: String;
     exportErrorMsg: String;
@@ -52,7 +47,6 @@ export class ImportComponent implements OnInit{
     currentDate: String;
     currencyUpdatedTime: String;
     public importList = [];
-    timePeriod = ['Q1 – Jul 1st to Sep 30th', 'Q2 – Oct 1st to Dec 31st', 'Q3 – Jan 1st to Mar 31st', 'Q4 – Apr 1st to Jun 30th'];
     FileHeading = ['Value', 'Sale Date', 'Currency', 'GST Eligible', 'Reference Number', 'User Code'];
     allowedCurrency = ['USD', 'CNY', 'JPY', 'EUR', 'KRW', 'SGD', 'NZD', 'GBP', 'MYR', 'THB', 'IDR', 'INR', 'TWD', 'VND', 'HKD', 'PGK', 'CHF', 'AED', 'CAD', 'AUD'];
     constructor(
@@ -141,7 +135,6 @@ export class ImportComponent implements OnInit{
   
       if (month.length < 2) month = '0' + month;
       if (day.length < 2) day = '0' + day;
-  
       return [day, month, year].join('-');
     };
 
@@ -217,6 +210,8 @@ export class ImportComponent implements OnInit{
 
     clearImport(){
       $("#fileControl").val('');
+      this.rowData = [];
+      this.importData = [];
     };
 
     ImportUpload(){
@@ -316,11 +311,6 @@ export class ImportComponent implements OnInit{
 
     ngOnInit() {
       this.childmenuOne = false;
-      this.childmenuTwo = false;
-      this.childmenuThree = false;
-      this.childmenuFour  = false;
-      this.childmenuFive = false;
-
       this.userDetails = null;
       this.getLoginDetails();
       this.parcelservice.importGstSum('I' ,(resp) => {

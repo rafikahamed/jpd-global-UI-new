@@ -28,8 +28,11 @@
                                 <li *ngIf="downLoadFlag" ><a routerLink="/gst-service/download"> Download Report</a></li>
                               </ul>
                           </li>
-                          <li><a routerLink="/home">
-                                <i class="fa fa-sign-out"></i> Logout</a>
+                          <li>
+                              <a routerLink="/home">
+                                <i class="fa fa-sign-out"></i> 
+                                  Logout
+                              </a>
                           </li>
                           </ul>
                       </div>
@@ -112,8 +115,9 @@
 
           <div class="fileupload_search">
               <div style="padding-right: 15px; margin-bottom:40px">
-                  <a href="/assets/forms/Import-Export-Template.xlsx" class="fa fa-file-excel-o" 
-                      style="color: darkgreen; font-size:17px; float: left;" download>
+                  <a href="/assets/forms/Import-Export-Template.xlsx" 
+                     class="fa fa-file-excel-o" 
+                     style="color: darkgreen; font-size:17px; float: left;" download>
                             **Please click here to download the template for file Import
                   </a>
               </div>
@@ -143,12 +147,16 @@
 
           <div class="fileupload_panel">
   
-                    <div style="margin-top: 20px;">
-                        <p class="err_msg">{{errorMsg}}</p>
-                    </div>
+                  <div style="margin-top: 20px;">
+                      <p class="err_msg">{{errorMsg}}</p>
+                  </div>
                  
-                  <button type="button" class="btn btn-info" (click)="DownLoadGstReport()"
-                      style="background-color: #16A085; float:right; margin-right:20px">Download Imported Data</button>
+                  <button type="button" 
+                      class="btn btn-info" 
+                      (click)="DownLoadGstReport()"
+                      style="background-color: #16A085; float:right; margin-right:20px">
+                      Download Imported Data
+                  </button>
 
                   <div style="padding:20px">
                     <p> Please select the below records to download the Imported Data </p>

@@ -3,7 +3,6 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { Router, NavigationEnd } from '@angular/router';
 import 'rxjs/add/operator/filter';
 import { ParcelService } from 'app/hms/service/parcel.service';
-import { LoginService } from 'app/hms/service/login.service';
 import { GridOptions } from "ag-grid";
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Angular2Csv } from 'angular2-csv/Angular2-csv';
@@ -21,7 +20,6 @@ interface dropdownTemplate {
   styleUrls: ['./parcel-download.component.css']
 })
 export class ParcelDownloadComponent implements OnInit{
-
     private gridOptions: GridOptions;
     private autoGroupColumnDef;
     private rowGroupPanelShow;
@@ -31,17 +29,12 @@ export class ParcelDownloadComponent implements OnInit{
     show: Boolean;
     errorMsg: String;
     errorDetails: any[];
-    errorDetails1: String;
     timePeriodDropdown: dropdownTemplate[];  
     selectedTimePeriod:  dropdownTemplate;
     file:File;
     arrayBuffer:any;
     downloadData: File_Data[];
     childmenuOne: boolean;
-    childmenuTwo:boolean;
-    childmenuThree:boolean;
-    childmenuFour:boolean;
-    childmenuFive:boolean;
     exportSuccessMsg: String;
     downloadErrorMsg: String;
     exportErrorMsg: String;
@@ -61,11 +54,11 @@ export class ParcelDownloadComponent implements OnInit{
     currencyUpdatedTime: String;
     public importList = [];
     timePeriod : String;
-   constructor(
-      public parcelservice: ParcelService, 
-      private router: Router,
-      private spinner: NgxSpinnerService
-    ){
+    constructor(
+        public parcelservice: ParcelService, 
+        private router: Router,
+        private spinner: NgxSpinnerService
+      ){
         this.errorMsg = null;
         this.successMsg = null;
         this.timePeriodDropdown = [];
@@ -79,77 +72,56 @@ export class ParcelDownloadComponent implements OnInit{
         this.exportSumValue = '0';
         this.downLoadFlag = false;
         this.currentDate = this.formatDate(new Date());
-      this.successMsg = null;
-      this.errorMsg = null;
-      this.show = false;
-      this.gridOptions = <GridOptions>{rowSelection: "multiple"};
-      this.gridOptions.columnDefs = [
-        {
-          headerName: "User Code",
-          field: "userCode",
-          width: 180,
-          checkboxSelection: true,
-          headerCheckboxSelection: function(params) {
-            return params.columnApi.getRowGroupColumns().length === 0;
+        this.successMsg = null;
+        this.errorMsg = null;
+        this.show = false;
+        this.gridOptions = <GridOptions>{rowSelection: "multiple"};
+        this.gridOptions.columnDefs = [
+          {
+            headerName: "Reference No",
+            field: "referenceNo",
+            width: 200,
+            checkboxSelection: true,
+            headerCheckboxSelection: function(params) {
+              return params.columnApi.getRowGroupColumns().length === 0;
+            }
+          },
+          {
+            headerName: "Value",
+            field: "amount",
+            width: 150
+          },
+          {
+            headerName: "Currency",
+            field: "currencyCode",
+            width: 180
+          },
+          {
+            headerName: "Aud Value",
+            field: "audConvertedAmount",
+            width: 180
+          },
+          {
+            headerName: "Report Indicator",
+            field: "reportIndicator",
+            width: 200
+          },
+          {
+            headerName: "GST Payable",
+            field: "gstPayable",
+            width: 180
           }
-        },
-        {
-          headerName: "GST Eligible ",
-          field: "gstEligible",
-          width: 180
-        },
-        {
-          headerName: "Reference No",
-          field: "referenceNo",
-          width: 150
-        },
-        {
-          headerName: "currency Code",
-          field: "currencyCode",
-          width: 200
-        },
-        {
-          headerName: "Amount",
-          field: "amount",
-          width: 150
-        },
-        {
-          headerName: "Aud Converted Value",
-          field: "audConvertedAmount",
-          width: 150
-        },
-        {
-          headerName: "CompanyName",
-          field: "companyName",
-          width: 150
-        },
-        {
-          headerName: "GST Payable",
-          field: "gstPayable",
-          width: 150
-        },
-        {
-          headerName: "File Name",
-          field: "fileName",
-          width: 200
-        },
-        {
-          headerName: "Report Indicator",
-          field: "reportIndicator",
-          width: 100
-
-        }
-      ];
-      this.autoGroupColumnDef = {
-        headerCheckboxSelection: true,
-        cellRenderer: "agGroupCellRenderer",
-        cellRendererParams: { checkbox: true }
-      };      
-      this.rowGroupPanelShow = "always";
-      this.defaultColDef = {
-        editable: true
-      };
-    }
+        ];
+        this.autoGroupColumnDef = {
+          headerCheckboxSelection: true,
+          cellRenderer: "agGroupCellRenderer",
+          cellRendererParams: { checkbox: true }
+        };      
+        this.rowGroupPanelShow = "always";
+        this.defaultColDef = {
+          editable: true
+        };
+      }
     
     formatDate(date) {
       var d = new Date(date),
@@ -163,70 +135,12 @@ export class ParcelDownloadComponent implements OnInit{
       return [day, month, year].join('-');
     };
 
-    DownLoadGstExportReport(){
-      var selectedRows = this.gridOptions.api.getSelectedRows();
-      this.errorMsg = '';
-      this.successMsg = '';
-      this.errorDetails1 = '';
-      if(selectedRows.length > 0){
-        var currentTime = new Date();
-        var importList = [];
-        var fileName = '';
-            fileName = "Export-Gst-Details"+"-"+currentTime.toLocaleDateString();
-          var options = { 
-            fieldSeparator: ',',
-            quoteStrings: '"',
-            decimalseparator: '.',
-            showLabels: true, 
-            useBom: true,
-            headers: ["User Code", "GST Eligible", "Reference Number", "rrival Date", "Currency", "Amount", "Indicator",
-                      "AUD Converted Amount", "Company Name", "GST Payable" ]
-          };
-          let user_code = 'user_code';
-          let gst_eligible = 'gst_eligible';
-          let reference_no = 'reference_no';
-          let arrival_date = 'arrival_date';
-          let currency_code = 'currency_code';
-          let amount = 'amount';
-          let report_indicator = 'report_indicator';
-          let aud_converted_value = 'aud_converted_value';
-          let companyName = 'companyName';
-          let gst_payable = 'gst_payable';
-      
-          for (var importVal in selectedRows) {
-              var adminObj = selectedRows[importVal];
-              var importObj = (
-                  importObj={}, 
-                  importObj[user_code]= adminObj.user_code != null ? adminObj.user_code: '', importObj,
-                  importObj[gst_eligible]= adminObj.gst_eligible != null ? adminObj.gst_eligible : '', importObj,
-                  importObj[reference_no]= adminObj.reference_no != null ? adminObj.reference_no : '', importObj,
-                  importObj[arrival_date]= adminObj.arrival_date != null ? adminObj.arrival_date : '', importObj,
-                  importObj[currency_code] = adminObj.currency_code != null ? adminObj.currency_code : '', importObj,
-                  importObj[amount]= adminObj.amount != null ? adminObj.amount : '', importObj,
-                  importObj[report_indicator]= adminObj.report_indicator != null ? adminObj.report_indicator : '', importObj,
-                  importObj[aud_converted_value]= adminObj.aud_converted_value != null ? adminObj.aud_converted_value : '', importObj,
-                  importObj[companyName]= adminObj.companyName != null ? adminObj.companyName : '', importObj,
-                  importObj[gst_payable]= adminObj.gst_payable != null ? adminObj.gst_payable : '',  importObj
-              );
-              importList.push(importObj)
-          };
-          new Angular2Csv(importList, fileName, options);
-      }else{
-         this.exportErrorMsg = "**Please select the below records to Download the GST calculated data";
-      }
-    };
-
     onTimePeriodDropdownchange(event){
-      console.log(event.value.value)
       this.timePeriod = event.value.value;
-    }
+    };
 
     ngOnInit() {
       this.childmenuOne = false;
-      this.childmenuTwo = false;
-      this.childmenuThree = false;
-      this.childmenuFour  = false;
-      this.childmenuFive = false;
       this.userDetails = null;
       this.getLoginDetails();
       this.timePeriodDropdown = [
@@ -323,33 +237,45 @@ export class ParcelDownloadComponent implements OnInit{
     };
 
     downloadGstData(){
-      var currentTime = new Date();
-      var fileName = '';
-      this.downloadErrorMsg ='';
-      var downloadList = [];
-      if(this.downloadData.length >0){
-        fileName = this.downloadData[0].username+"-"+currentTime.toLocaleDateString();
-        var options = { 
-          fieldSeparator: ',',
-          quoteStrings: '"',
-          decimalseparator: '.',
-          showLabels: true, 
-          useBom: true,
-          headers: ['Amount', 'Aud Converted Amount', 'Currency Code', 'File Name', 'GST-Eligible', 'GST-Payable', 
-                    'Reference Number', 'Report-Indicator', 'Sale Date',
-                    'Uploaded-Date','User-code', 'Company Name', 'User-Name' ]
-        };
-        this.spinner.hide();
-        for (var downloadVal in this.downloadData) {
-          var downloadObj = this.downloadData[downloadVal];
-          delete downloadObj['id'];
-          delete downloadObj['txnDate'];
-          downloadList.push(downloadObj)
-        }
-        new Angular2Csv(downloadList, fileName, options);
+      var selectedRows = this.gridOptions.api.getSelectedRows();
+      this.errorMsg = '';
+      this.successMsg = '';
+      if(selectedRows.length > 0){
+        var currentTime = new Date();
+        var importList = [];
+        var fileName = '';
+            fileName = "Export-Gst-Details"+"-"+currentTime.toLocaleDateString();
+          var options = { 
+            fieldSeparator: ',',
+            quoteStrings: '"',
+            decimalseparator: '.',
+            showLabels: true, 
+            useBom: true,
+            headers: ["Reference Number", "Value", "Currency", "AUD Value", "Report Indicator", "GST Payable" ]
+          };
+          let reference_no = 'reference_no';
+          let currency_code = 'currency_code';
+          let amount = 'amount';
+          let report_indicator = 'report_indicator';
+          let aud_converted_value = 'aud_converted_value';
+          let gst_payable = 'gst_payable';
+      
+          for (var importVal in selectedRows) {
+              var adminObj = selectedRows[importVal];
+              var importObj = (
+                  importObj={}, 
+                  importObj[reference_no]= adminObj.referenceNo != null ? adminObj.referenceNo : '', importObj,
+                  importObj[amount]= adminObj.amount != null ? adminObj.amount : '', importObj,
+                  importObj[currency_code] = adminObj.currencyCode != null ? adminObj.currencyCode : '', importObj,
+                  importObj[aud_converted_value]= adminObj.audConvertedAmount != null ? adminObj.audConvertedAmount : '', importObj,
+                  importObj[report_indicator]= adminObj.reportIndicator != null ? adminObj.reportIndicator : '', importObj,
+                  importObj[gst_payable]= adminObj.gstPayable != null ? adminObj.gstPayable : '',  importObj
+              );
+              importList.push(importObj)
+          };
+          new Angular2Csv(importList, fileName, options);
       }else{
-        this.spinner.hide();
-        this.downloadErrorMsg="*No recored found for given Quater"
+         this.exportErrorMsg = "**Please select the below records to Download the GST calculated data";
       }
     };
 
@@ -357,7 +283,7 @@ export class ParcelDownloadComponent implements OnInit{
       this.errorMsg = '';
       this.successMsg = '';
       var selectedRows = this.gridOptions.api.getSelectedRows();
-    }
+    };
  
 }
 

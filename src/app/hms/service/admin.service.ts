@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { Router } from "@angular/router";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-const baseUrl = "https://www.jpdglobal.com.au/v1/logistics"
-// const baseUrl = "http://localhost:8080/v1/logistics";
+// const baseUrl = "https://www.jpdglobal.com.au/v1/logistics"
+const baseUrl = "http://localhost:8080/v1/logistics";
 @Injectable()
 export class AdminService {
   userMessage: userMessage;
@@ -58,7 +58,7 @@ export class AdminService {
 
   adminDownLoad(callback): any {
     this.http.get(baseUrl+'/adminDownload'
-    ).subscribe((resp:ArnRegister) => {
+    ).subscribe((resp) => {
       callback(resp);
     }, (error) => {
       console.error(error);
@@ -67,7 +67,16 @@ export class AdminService {
 
   companyDetails(callback): any {
     this.http.get(baseUrl+'/companyDetails'
-    ).subscribe((resp:ArnRegister) => {
+    ).subscribe((resp) => {
+      callback(resp);
+    }, (error) => {
+      console.error(error);
+    });
+  }
+
+  fetchMgrUseDetails(callback): any {
+    this.http.get(baseUrl+'/fetchMgrUserName'
+    ).subscribe((resp) => {
       callback(resp);
     }, (error) => {
       console.error(error);

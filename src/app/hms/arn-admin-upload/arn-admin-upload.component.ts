@@ -27,7 +27,7 @@ export class ARNAdminUploadComponent implements OnInit{
     file:File;
     arrayBuffer:any;
     childmenuOne: boolean;
-    userDetails: userDetails;
+    userDetails: userMessage;
     userName: String;
     access: String;
     companyName : String;
@@ -286,13 +286,18 @@ export class ARNAdminUploadComponent implements OnInit{
       this.rowData = [];
       this.file = event.target.files[0]; 
       this.importFileUpload();
-    }
+    };
 
     onSelectionChange() {
       this.errorMsg = '';
       this.successMsg = '';
       var selectedRows = this.gridOptions.api.getSelectedRows();
-    }
+    };
+
+    clearAdminUpload(){
+      $("#adminUploadFile").val('');
+      this.rowData = [];
+    };
  
 }
 
@@ -314,7 +319,7 @@ export interface File_Data {
   aud_converted_value: number;
 }
 
-export interface userDetails {
+export interface userMessage {
   message,
   userName,
   access,

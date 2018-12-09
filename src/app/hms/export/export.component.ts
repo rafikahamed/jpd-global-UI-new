@@ -47,7 +47,6 @@ export class ExportComponent implements OnInit{
     importSumValue: String;
     exportSumValue: String;
     time: String;
-    importData: any[];
     fileType: String;
     level: String;
     downLoadFlag: boolean;
@@ -372,6 +371,8 @@ export class ExportComponent implements OnInit{
 
     clearExport(){
       $("#fileControlExport").val('');
+      this.rowData = [];
+      this.exportData = [];
     };
  
 }

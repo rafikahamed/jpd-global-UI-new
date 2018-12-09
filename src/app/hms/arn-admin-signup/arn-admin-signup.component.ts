@@ -30,7 +30,8 @@ export class ARNAdminSignUpComponent implements OnInit{
   userDetails: userDetails;
   userName: String;
   access: String;
-  companyName : String;
+  companyName: String;
+  mgrUsername: String;
   userCode: string;
   userMessage: userMessage;
   brokerAddClientForm: FormGroup;
@@ -41,10 +42,11 @@ export class ARNAdminSignUpComponent implements OnInit{
   levelTwoFlag: boolean = true;
   legalNameFlag: boolean = true;
   legalNameSelctFlag: boolean = false;
+  managerUserFlag = false;
   accessDropdown: dropdownTemplate[];  
   companyDropdown: dropdownTemplate[];
+  mgrUsernameDropdown: dropdownTemplate[];
   childmenuOne: boolean;
-
   constructor(
       private spinner: NgxSpinnerService,
       public adminservice: AdminService,
@@ -92,8 +94,10 @@ export class ARNAdminSignUpComponent implements OnInit{
 
     onAccessDropdownchange(event){
       this.level = event.value.value;
+      this.adminSignupForm.reset();
       if(this.level == "level 1"){
         this.arnRestrict = false;
+        this.managerUserFlag = false;
         this.levelTwoFlag = true;
         this.legalNameFlag = true;
         this.legalNameSelctFlag = false;
@@ -101,17 +105,27 @@ export class ARNAdminSignUpComponent implements OnInit{
         this.adminSignupForm.get('managerName').disable();
      }else{
          this.arnRestrict = true;
+         this.managerUserFlag = true;
          this.levelTwoFlag = false;
          this.legalNameSelctFlag = true;
          this.legalNameFlag = false;
          this.adminSignupForm.get('managerName').enable();
+         this.spinner.show();
          this.adminservice.companyDetails( (resp) => {
           this.companyDropdown = resp;
           this.legalName = this.companyDropdown[0].value;
-          if(!resp){
+            if(!resp){
               this.errorMsg = "Invalid Credentials!";
-          }  
-        });
+            }  
+         });
+         this.adminservice.fetchMgrUseDetails( (resp) => {
+            this.spinner.hide();
+            this.mgrUsernameDropdown = resp;
+            this.mgrUsername = this.mgrUsernameDropdown[0].value;
+              if(!resp){
+                this.errorMsg = "Invalid Credentials!";
+              }  
+         });
      }
     };
 
@@ -144,7 +158,6 @@ export class ARNAdminSignUpComponent implements OnInit{
       }else{
           this.hasError = false;
       }
-      console.log(this.adminSignupForm.status)
       if(!this.hasError){
         let legalName = 'legalName';
         let level = 'access_level';
@@ -155,7 +168,6 @@ export class ARNAdminSignUpComponent implements OnInit{
         let phoneNumber = 'phoneNumber';
         let emailAddress = 'email_addr';
         let mgrUserName= 'mgr_username';
-        console.log(this.legalName)
         var SignUpObj = (
           SignUpObj={}, 
           SignUpObj[legalName]= ( this.adminSignupForm.value.legalName != null ? 
@@ -167,7 +179,8 @@ export class ARNAdminSignUpComponent implements OnInit{
           SignUpObj[authrorizedConatct]=this.adminSignupForm.value.authrorizedConatct, SignUpObj,
           SignUpObj[phoneNumber]=this.adminSignupForm.value.phoneNumber, SignUpObj,
           SignUpObj[emailAddress]=this.adminSignupForm.value.emailAddress, SignUpObj,
-          SignUpObj[mgrUserName]= this.adminSignupForm.value.managerName, SignUpObj
+          SignUpObj[mgrUserName]= this.managerUserFlag ? this.mgrUsername : 
+                      this.adminSignupForm.value.userName, SignUpObj
         );
         this.spinner.show();
         this.adminservice.adminSignUp(SignUpObj, (resp) => {
@@ -191,10 +204,14 @@ export class ARNAdminSignUpComponent implements OnInit{
     };
 
     onCompanyDropdownchange(company){
-      console.log(company.value.value);
       this.legalName = null;
-      this.legalName = company;
-    }
+      this.legalName = company.value.value;
+    };
+
+    onMgrDropdownchange(mgrNmae){
+      this.mgrUsername = null;
+      this.mgrUsername = mgrNmae.value.value;
+    };
   
     toggle(arrow) {
       this.childmenuOne = !this.childmenuOne;
@@ -238,11 +255,4 @@ export interface userMessage {
     access,
     companyName,
     userCode
-  }
-
-export interface adminDetails{
-  company_name,
-  gst_payable,
-  amount,
-  gst_exclude
 }

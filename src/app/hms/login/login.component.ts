@@ -97,17 +97,23 @@ export class LoginComponent implements OnInit{
         }
   }
 
-  login() {
-    console.log("Login Form Status"+this.loginForm.status);
+  login(){
     this.validateForm();
+    this.errorMsg = null;
     if(this.loginForm.status == 'VALID'){
       this.spinner.show();
       this.loginservice.authenticate(this.loginForm.value, (resp) => {
+        console.log(resp)
         this.userMessage = resp;
+        this.parcelService.getLoginDetails(this.userMessage);
         if(this.userMessage.message == "logged In Successfully"){
           this.spinner.hide();
-          this.router.navigate(['/gst-service/import/']);
-          this.parcelService.getLoginDetails(this.userMessage);
+          if(resp.access == 'adminLevel'){
+            this.router.navigate(['arn-register/admin']);
+          }
+          if(resp.access != 'adminLevel'){
+            this.router.navigate(['/gst-service/import/']);
+          }
         }
         if(this.userMessage.message == "User dose not have access to login"){
           this.spinner.hide();
@@ -120,9 +126,8 @@ export class LoginComponent implements OnInit{
     }else{
       console.log("Form is invalid")
     }
-    
-  
   }
+
 }
 
 export interface userMessage {

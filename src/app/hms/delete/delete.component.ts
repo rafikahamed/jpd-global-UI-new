@@ -225,10 +225,11 @@ export class DeleteComponent implements OnInit{
       this.getLoginDetails();
       this.spinner.show();
       
-      this.parcelservice.fileDetails((resp) => {
+      this.parcelservice.fileDetails(this.userName,(resp) => {
         this.spinner.hide();
         this.timePeriodDropdown = resp;
-        this.fileType = this.timePeriodDropdown[0].value;
+        if(this.timePeriodDropdown.length > 0)
+            this.fileType = this.timePeriodDropdown[0].value;
       });
       
       this.parcelservice.importGstSum('I' ,(resp) => {
@@ -295,6 +296,7 @@ export class DeleteComponent implements OnInit{
         this.parcelservice.deleteImportExport(refrenceNumList, (resp) => {
             this.spinner.hide();
             this.successMsg = resp.message;
+            $('#fileDeleteModal').modal('show');
             if(!resp){
             }
             setTimeout(() => {
