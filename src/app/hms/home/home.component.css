@@ -2,3 +2,15 @@
     background: #ccc;
     cursor: pointer;
 }
+
+.error-msg{
+	color: #ca1212;
+	font-size: 13px;
+    margin-top: 10px;
+}
+
+.success_msg{
+    color:green; 
+    font-size: 13px;
+    font-weight: 500; 
+}

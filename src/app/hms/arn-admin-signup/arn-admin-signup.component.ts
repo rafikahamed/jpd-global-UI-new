@@ -143,13 +143,13 @@ export class ARNAdminSignUpComponent implements OnInit{
       }else if(this.levelTwoFlag && this.adminSignupForm.value.phoneNumber == null){
         this.errorMsg = "*Phone Number cannot be blank"
         this.hasError = true;
-      }else if(this.adminSignupForm.value.userName.length == 0){
+      }else if(this.adminSignupForm.value.userName == null){
         this.errorMsg = "*user Name cannot be blank"
         this.hasError = true;
-      }else if(this.adminSignupForm.value.password.length == 0){
+      }else if(this.adminSignupForm.value.password == null){
         this.errorMsg = "*Password cannot be blank"
         this.hasError = true;
-      }else if(this.adminSignupForm.value.confirmPassword.length == 0){
+      }else if(this.adminSignupForm.value.confirmPassword == null){
         this.errorMsg = "*confirmPassword cannot be blank"
         this.hasError = true;
       }else if(this.adminSignupForm.value.password != this.adminSignupForm.value.confirmPassword){
@@ -209,8 +209,12 @@ export class ARNAdminSignUpComponent implements OnInit{
     };
 
     onMgrDropdownchange(mgrNmae){
-      this.mgrUsername = null;
-      this.mgrUsername = mgrNmae.value.value;
+      if(mgrNmae.value != null){
+        this.mgrUsername = null;
+        this.mgrUsername = mgrNmae.value.value;
+      }else{
+        this.mgrUsername = null;
+      }
     };
   
     toggle(arrow) {

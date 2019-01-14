@@ -21,6 +21,8 @@ export class ArnRegistrationUserComponent implements OnInit{
       userGroupedForm:  FormGroup;
       arrayBuffer:any;
       hasError: Boolean;
+      dob: String;
+      regDate: String;
       level: string;
       fileData: ArnRegister[];
       termCheck: Boolean;
@@ -37,14 +39,17 @@ export class ArnRegistrationUserComponent implements OnInit{
             authrorizedConatct: new FormControl('', Validators.required),
             emailAddress: new FormControl('', Validators.required),
             phoneNumber: new FormControl('', Validators.required),
-            postalAddress: new FormControl('', Validators.required)
+            postalAddress: new FormControl('', Validators.required),
+            subUrb: new FormControl('', Validators.required)
+           
         });
         this.userSignUpFormTwo = new FormGroup({
-            subUrb: new FormControl('', Validators.required),
             postCode: new FormControl('', Validators.required),
             country: new FormControl('', Validators.required),
             websiteName: new FormControl('', Validators.required),
-            tanNumber: new FormControl('', Validators.required)
+            tanNumber: new FormControl('', Validators.required),
+            dateOfBirth: new FormControl(),
+            registrationDate: new FormControl()
         })
     };
 
@@ -52,6 +57,24 @@ export class ArnRegistrationUserComponent implements OnInit{
 
     termsAndCondition(termsCheck){
         this.termCheck = termsCheck.checked;
+    };
+
+    dobChange(event){
+        var str = event.target.value;
+        var date = new Date(str),
+              mnth = ("0" + (date.getMonth()+1)).slice(-2),
+              day  = ("0" + date.getDate()).slice(-2);
+         this.dob = [ date.getFullYear(), mnth, day ].join("-");
+         this.userSignUpFormTwo.controls['dateOfBirth'].setValue(this.dob);
+    };
+
+    regDateChange(event){
+        var str = event.target.value;
+        var date = new Date(str),
+              mnth = ("0" + (date.getMonth()+1)).slice(-2),
+              day  = ("0" + date.getDate()).slice(-2);
+         this.regDate = [ date.getFullYear(), mnth, day ].join("-");
+         this.userSignUpFormTwo.controls['registrationDate'].setValue(this.regDate);
     };
 
     userSignUp(){

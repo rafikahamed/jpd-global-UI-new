@@ -378,22 +378,49 @@
       <div class="row">
         <!-- Contact Form -->
         <div class="col-md-5 col-sm-5 col-xs-12">
-          <form class="form" method="post" action="mail/mail.php">
+          <form class="form" [formGroup]="contactForm">
             <div class="form-group">
-              <input type="text" name="name" placeholder="Name" required="required">
-                          </div>
+              <input type="text" 
+                      name="name" 
+                      formControlName="name"
+                      placeholder="Name" 
+                      required="required">
+            </div>
             <div class="form-group">
-              <input type="email" name="email" placeholder="Email" required="required">
-                          </div>
+              <input type="email" 
+                      name="email" 
+                      placeholder="Email" 
+                      formControlName="email"
+                      required="required">
+            </div>
             <div class="form-group">
-              <input type="text" name="subject" placeholder="Subject" required="required">
-                          </div>
+              <input type="text" 
+                      name="subject" 
+                      placeholder="Subject" 
+                      formControlName="subject"
+                      required="required">
+            </div>
             <div class="form-group">
-              <textarea name="message" rows="6" placeholder="Message" ></textarea>
-                          </div>
+              <textarea name="message" 
+                        rows="6" 
+                        formControlName="message"
+                        placeholder="Message" >
+              </textarea>
+            </div>
+            <div>
+              <p class="success_msg">{{successMsg}}</p>
+            </div>
+            <div>
+              <p class="error-msg">{{errorMsg}}</p>
+            </div>
             <div class="form-group">	
-              <button type="submit" class="button primary"><i class="fa fa-send"></i>Submit</button>
-                          </div>
+              <button type="submit" 
+                      (click)="contactSubmit()"
+                      class="button primary">
+                    <i class="fa fa-send"></i>
+                    Submit
+              </button>
+            </div>
           </form>
         </div>
         
@@ -406,78 +433,8 @@
   </section>
   <!--/ End Clients Us -->
 
-  <!-- Location -->
-  <!-- <section id="location" class="section" style="padding: 20px">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12 col-sm-12 col-xs-12 wow fadeIn">
-          <div class="section-title center">
-            <h2>Our <span>Location</span></h2>
-            <p>Coordinates for abs potioning the closest positioned parent box of the positioned abs qoning the closes for abs potioning the closest positioned parent.</p>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-4 col-sm-4 col-xs-12 wow fadeIn" data-wow-delay="0.4s">
-          <div class="single-address">
-            <i class="fa fa-phone"></i>
-            <h4>Our Phone</h4>
-            <p>	+61470271180 </p>
-          </div>
-        </div>
-        <div class="col-md-4 col-sm-4 col-xs-12 wow fadeIn" data-wow-delay="0.6s">
-          <div class="single-address active">
-            <i class="fa fa-phone"></i>
-            <h4></h4>
-            <p>Ground Floor, Suite 3, 410 Church Street, North Parramatta, NSW - 2151.</p>
-          </div>
-        </div>
-        <div class="col-md-4 col-sm-4 col-xs-12 wow fadeIn" data-wow-delay="0.8s">
-          <div class="single-address">
-            <i class="fa fa-phone"></i>
-            <h4>Corporate Email</h4>
-            <p>gst@jpdglobal.com.au</p>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section> -->
-  <!--/ End Location -->
-
   <!-- Start Footer -->
   <footer id="footer" style="margin-top:30px" class="wow fadeIn">
-    <!-- Footer Top -->
-    <!-- <div class="footer-top">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12 col-sm-12 col-xs-12 ">
-            
-            <div class="logo">
-              
-            </div>	
-            
-            <ul class="social">
-              <li class="active"><a href="#"><i class="fa fa-facebook"></i></a></li>
-              <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-              <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-              <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
-            </ul>	
-            
-            <ul class="nav">
-              <li><a href="index.html">Home</a></li>
-              <li><a href="portfolio.html">Portfolio</a></li>
-              <li><a href="blog.html">Latest Blog</a></li>
-              <li><a href="#">Contact</a></li>
-            </ul>		
-            
-          </div>
-        </div>
-      </div>
-    </div> -->
-    <!--/ End Footer Top -->
-    
-    <!-- Copyright -->
     <div class="copyright">
       <div class="container">
         <div class="row">
@@ -489,6 +446,5 @@
         </div>
       </div>
     </div>
-    <!--/ End Copyright -->
   </footer>
   <!--/ End Footer -->

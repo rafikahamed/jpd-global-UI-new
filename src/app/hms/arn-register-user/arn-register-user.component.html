@@ -129,7 +129,16 @@
                                                                 formControlName="postalAddress">
                                                         <span class="focus-input100"></span>
                                                 </div>
-            
+                                                
+                                                <div class="wrap-input100 validate-input m-b-23">
+                                                        <span class="label-input100">Suburb</span>
+                                                        <input class="input100" 
+                                                                    type="text" 
+                                                                    name="subUrb" 
+                                                                    placeholder="Type your Suburb" 
+                                                                 formControlName="subUrb">
+                                                        <span class="focus-input100"></span>
+                                                </div>
                                                 
                                             </form>
                                         </div>
@@ -141,16 +150,6 @@
                                                 style="margin-top: -40px;" >
                                                 <span class="login80-form-title p-b-20">
                                                 </span>
-            
-                                                <div class="wrap-input100 validate-input m-b-23">
-                                                    <span class="label-input100">Suburb</span>
-                                                    <input class="input100" 
-                                                                type="text" 
-                                                                name="subUrb" 
-                                                                placeholder="Type your Suburb" 
-                                                             formControlName="subUrb">
-                                                    <span class="focus-input100"></span>
-                                                </div>
                             
                                                 <div class="wrap-input100 validate-input m-b-23">
                                                         <span class="label-input100">Postcode</span>
@@ -193,6 +192,30 @@
                                                                placeholder="Type your TAN Number"	
                                                                formControlName="tanNumber">
                                                         <span class="focus-input100"></span>
+                                                </div>
+
+                                                <div class="wrap-input100 validate-input m-b-23">
+                                                        <span class="label-input100">Date Of Birth</span>
+                                                        <mat-form-field class="input100">
+                                                                <input matInput 
+                                                                [matDatepicker]="picker"
+                                                                (dateChange)="dobChange($event)">
+                                                                <mat-datepicker-toggle matSuffix [for]="picker">
+                                                                </mat-datepicker-toggle>
+                                                                <mat-datepicker #picker></mat-datepicker>
+                                                            </mat-form-field>
+                                                </div>
+
+                                                <div class="wrap-input100 validate-input m-b-23">
+                                                        <span class="label-input100">Registration Date</span>
+                                                        <mat-form-field class="input100">
+                                                                <input matInput 
+                                                                [matDatepicker]="pickerTo" 
+                                                                (dateChange)="regDateChange($event)">
+                                                                <mat-datepicker-toggle matSuffix [for]="pickerTo">
+                                                                </mat-datepicker-toggle>
+                                                                <mat-datepicker #pickerTo></mat-datepicker>
+                                                        </mat-form-field>
                                                 </div>
 
                                                 <div style="margin-top: 70px">

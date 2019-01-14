@@ -71,7 +71,8 @@
 
                             <table class="table table-striped" style="width:55%">
                                     <div style="margin-top: 5px;">
-                                            <p style="color: #ca2929; font-size:14px; font-weight:400;">
+                                            <p style="color: #ca2929; 
+                                                        font-size:14px; font-weight:400;">
                                                {{errorMsg}}</p>
                                     </div>
                                     <tbody>
@@ -88,7 +89,7 @@
                                                                             <i class="glyphicon glyphicon-user"></i>
                                                                             </span>
                                                                             <p-dropdown [options]="accessDropdown" 
-                                                                                    [style]="{'width': '300px'}"
+                                                                                    [style]="{'width': '250px'}"
                                                                                     [ngModelOptions]="{standalone: true}"
                                                                                     [(ngModel)]="selectedLevel"
                                                                                     optionLabel="name" 
@@ -123,10 +124,12 @@
                                                                             <i class="glyphicon glyphicon-user"></i>
                                                                             </span>
                                                                             <p-dropdown [options]="companyDropdown" 
-                                                                                    [style]="{'width': '300px'}"
+                                                                                    [style]="{'width': '250px'}"
                                                                                     [ngModelOptions]="{standalone: true}"
                                                                                     [(ngModel)]="selectedCompany" 
                                                                                     optionLabel="name" 
+                                                                                    [showClear]="true"
+                                                                                    [editable]="true"
                                                                                     (onChange)="onCompanyDropdownchange($event)">
                                                                             </p-dropdown>
                                                                     </div>
@@ -225,9 +228,11 @@
                                                                                 <i class="glyphicon glyphicon-user"></i>
                                                                                 </span>
                                                                                 <p-dropdown [options]="mgrUsernameDropdown" 
-                                                                                        [style]="{'width': '300px'}"
+                                                                                        [style]="{'width': '250px'}"
                                                                                         [ngModelOptions]="{standalone: true}"
-                                                                                        [(ngModel)]="selectedCompany" 
+                                                                                        [(ngModel)]="selectedManger" 
+                                                                                        [showClear]="true"
+                                                                                        [editable]="true"
                                                                                         optionLabel="name" 
                                                                                         (onChange)="onMgrDropdownchange($event)">
                                                                                 </p-dropdown>
@@ -299,10 +304,10 @@
                                             </td>
                             </tr>
                             </tbody>
-                    </table>
+                            </table>
                     </div>
 
-                    <footer id="footer" class="wow fadeIn">
+                    <footer id="footer" class="wow fadeIn" style="margin-top:80px">
                         <div class="copyright">
                             <div class="container">
                                     <div class="row">

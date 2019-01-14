@@ -260,7 +260,6 @@ export class ARNAdminUploadComponent implements OnInit{
     }
 
     getLoginDetails(){
-      console.log(this.parcelservice.userMessage )
       if(this.parcelservice.userMessage != undefined){
         this.userDetails = this.parcelservice.userMessage;
         this.userName = this.parcelservice.userMessage.userName;

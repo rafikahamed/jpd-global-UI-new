@@ -5,8 +5,8 @@ import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 
-// const baseUrl = "https://www.jpdglobal.com.au/v1/logistics";
-const baseUrl = "http://localhost:8080/v1/logistics";
+const baseUrl = "https://www.jpdglobal.com.au/v1/logistics";
+// const baseUrl = "http://localhost:8080/v1/logistics";
 @Injectable()
 export class LoginService implements OnInit{
   public newUserSubject = new Subject<any>();
@@ -36,7 +36,22 @@ export class LoginService implements OnInit{
     }, (error) => {
       console.error(error);
     });
-  }
+  };
+
+  contactUs( contactObject, callback): any {
+    this.http.get(baseUrl+'/contactUs', {
+      params: { email: contactObject.email, message: contactObject.message, 
+                        name:contactObject.name, subject:contactObject.subject  }
+    }).subscribe((resp) => {
+      callback(resp);
+      if (resp) {
+      } else {
+        console.error("Not Found!")
+      }
+    }, (error) => {
+      console.error(error);
+    });
+  };
 }
 
 export interface userMessage {

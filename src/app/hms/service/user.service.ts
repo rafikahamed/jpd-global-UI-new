@@ -3,8 +3,8 @@ import { Router } from "@angular/router";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 
-const baseUrl = "http://localhost:8080/v1/logistics";
-// const baseUrl = "https://www.jpdglobal.com.au/v1/logistics";
+// const baseUrl = "http://localhost:8080/v1/logistics";
+const baseUrl = "https://www.jpdglobal.com.au/v1/logistics";
 @Injectable()
 export class UserService {
   userMessage: userMessage;
@@ -13,7 +13,6 @@ export class UserService {
   
   arnRegistration( arnObject, fileName, callback): any {
    var array = [];
-    console.log(arnObject)
     array.push(arnObject)
     this.http.post(baseUrl+'/arnRegistration',array
     ).subscribe((resp:ArnRegister) => {
